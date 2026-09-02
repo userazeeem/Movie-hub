@@ -1,0 +1,15 @@
+$kind: http-request
+name: http://localhost:5000/api/auth/login
+description: ""
+url: http://localhost:5000/api/auth/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"azeem\",\r
+
+    \    \"password\": \"TestPassword123\"\r
+
+    }\r\n"
+order: 2645237958498992
