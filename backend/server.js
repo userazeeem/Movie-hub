@@ -12,10 +12,24 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
+// Comment routes
+const commentRoutes = require("./routes/commentRoutes");
+app.use("/api/comments", commentRoutes);
 
+// Recommendation routes
+const recommendationRoutes = require("./routes/recommendationRoutes");
+app.use("/api/recommendations", recommendationRoutes);
+
+// ===============================
+// MOVIE ROUTES
+// ===============================
+
+const movieRoutes = require("./routes/movieRoutes");
+app.use("/api/movies", movieRoutes);
 // ===============================
 // AUTH ROUTES
 // ===============================
+
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 

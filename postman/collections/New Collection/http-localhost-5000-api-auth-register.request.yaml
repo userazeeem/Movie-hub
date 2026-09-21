@@ -7,11 +7,11 @@ body:
   type: json
   content: "{\r
 
-    \    \"username\": \"azeem\",\r
+    \    \"username\": \"userazeeem\",\r
 
-    \    \"email\": \"azeem@example.com\",\r
+    \    \"email\": \"userazeeemazeem@example.com\",\r
 
-    \    \"password\": \"TestPassword123\"\r
+    \    \"password\": \"userazeeem\"\r
 
     }"
 order: 1788361882336
