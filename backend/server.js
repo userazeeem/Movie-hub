@@ -12,6 +12,9 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
+const followRoutes = require("./routes/followRoutes");
+app.use("/api/follows", followRoutes);
+
 // Comment routes
 const commentRoutes = require("./routes/commentRoutes");
 app.use("/api/comments", commentRoutes);
