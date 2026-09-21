@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | Movie-Hub</title>
+
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <main class="login-container">
+
+        <div class="login-card">
+
+            <div class="logo">
+                MOVIE<span>-HUB</span>
+            </div>
+
+            <h1>Create Account</h1>
+
+            <p class="subtitle">
+                Join Movie-Hub and start your movie journey.
+            </p>
+
+            <form id="signupForm">
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Choose a username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" id="signupButton">
+                    CREATE ACCOUNT
+                </button>
+
+                <p id="signupMessage"></p>
+
+            </form>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <p class="signup-text">
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+
+        </div>
+
+    </main>
+
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

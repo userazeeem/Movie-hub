@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Movie-Hub</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            MOVIE<span>-HUB</span>
+        </div>
+
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="watchlist.html">Watchlist</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+
+        <button id="logoutButton" class="logout-button">
+            Logout
+        </button>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-label">
+                WELCOME TO MOVIE-HUB
+            </p>
+
+            <h1>
+                Your next favorite<br>
+                movie is waiting.
+            </h1>
+
+            <p class="hero-description">
+                Discover movies, build your watchlist and explore
+                recommendations from other movie lovers.
+            </p>
+
+            <button class="hero-button" onclick="scrollToMovies()">
+                EXPLORE MOVIES
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MOVIES ================= -->
+
+    <main class="movies-section" id="moviesSection">
+
+        <div class="section-header">
+
+            <div>
+                <p class="section-label">
+                    DISCOVER
+                </p>
+
+                <h2>
+                    Movies
+                </h2>
+            </div>
+
+            <div class="search-container">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search movies..."
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- Movie cards will be inserted here -->
+
+        <div id="moviesContainer" class="movies-grid">
+
+            <p class="loading">
+                Loading movies...
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Movie-Hub
+        </p>
+
+        <p>
+            Built with HTML, CSS, JavaScript, Node.js & MySQL
+        </p>
+
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
