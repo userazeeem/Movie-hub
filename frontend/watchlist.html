@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Watchlist | Movie-Hub</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            MOVIE<span>-HUB</span>
+        </div>
+
+
+        <nav>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a
+                href="watchlist.html"
+                class="active"
+            >
+                Watchlist
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+        </nav>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+    <!-- ================= WATCHLIST ================= -->
+
+    <main class="watchlist-page">
+
+        <section class="watchlist-header">
+
+            <p class="section-label">
+                YOUR COLLECTION
+            </p>
+
+            <h1>
+                My Watchlist
+            </h1>
+
+            <p class="watchlist-description">
+                Movies you've saved to watch later.
+            </p>
+
+        </section>
+
+
+        <!-- Movies appear here -->
+
+        <section
+            id="watchlistContainer"
+            class="movies-grid"
+        >
+
+            <p class="loading">
+                Loading your watchlist...
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 Movie-Hub
+        </p>
+
+        <p>
+            Your movies. Your collection.
+        </p>
+
+    </footer>
+
+
+    <script src="js/watchlist.js"></script>
+
+</body>
+
+</html>

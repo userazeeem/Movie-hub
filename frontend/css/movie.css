@@ -1,0 +1,437 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #050505;
+
+    color: white;
+
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+
+    height: 75px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(5, 5, 5, 0.92);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #1b1b1b;
+}
+
+
+.logo {
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.logo span {
+
+    color: #777;
+}
+
+
+nav {
+
+    display: flex;
+
+    gap: 35px;
+}
+
+
+nav a {
+
+    color: #777;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.25s;
+}
+
+
+nav a:hover {
+
+    color: white;
+}
+
+
+.logout-button {
+
+    padding: 9px 18px;
+
+    background: transparent;
+
+    border: 1px solid #333;
+
+    border-radius: 6px;
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.logout-button:hover {
+
+    color: white;
+
+    border-color: #777;
+}
+
+
+/* =====================================================
+   MOVIE CONTAINER
+===================================================== */
+
+.movie-container {
+
+    min-height:
+        calc(100vh - 75px);
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 80px 8%;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 75% 30%,
+            rgba(255,255,255,0.09),
+            transparent 30%
+        ),
+
+        #050505;
+}
+
+
+/* =====================================================
+   BACKGROUND CIRCLE
+===================================================== */
+
+.movie-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    border: 1px solid #181818;
+
+    border-radius: 50%;
+
+    right: -250px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   MOVIE CONTENT
+===================================================== */
+
+.movie-content {
+
+    max-width: 850px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.movie-label {
+
+    color: #666;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 20px;
+}
+
+
+.movie-title {
+
+    font-size:
+        clamp(48px, 8vw, 90px);
+
+    line-height: 0.95;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+
+.movie-description {
+
+    max-width: 650px;
+
+    color: #999;
+
+    line-height: 1.8;
+
+    font-size: 16px;
+
+    margin-bottom: 35px;
+}
+
+
+/* =====================================================
+   MOVIE META
+===================================================== */
+
+.movie-meta {
+
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 35px;
+}
+
+
+.meta-item {
+
+    padding: 8px 14px;
+
+    border: 1px solid #292929;
+
+    border-radius: 5px;
+
+    color: #aaa;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.movie-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+.primary-button {
+
+    padding: 14px 24px;
+
+    background: white;
+
+    color: black;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.primary-button:hover {
+
+    background: #ddd;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.secondary-button {
+
+    padding: 14px 24px;
+
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid #333;
+
+    border-radius: 6px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+.secondary-button:hover {
+
+    border-color: #777;
+
+    background: #111;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+
+    width: 100%;
+
+    text-align: center;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-message {
+
+    text-align: center;
+
+    width: 100%;
+}
+
+
+.error-message h2 {
+
+    margin-bottom: 15px;
+}
+
+
+.error-message p {
+
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .navbar {
+
+        padding: 20px;
+
+        height: auto;
+
+        flex-wrap: wrap;
+
+        gap: 15px;
+    }
+
+
+    nav {
+
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 20px;
+    }
+
+
+    .movie-container {
+
+        padding: 60px 25px;
+
+        min-height:
+            calc(100vh - 120px);
+    }
+
+
+    .movie-title {
+
+        letter-spacing: -2px;
+    }
+
+
+    .movie-description {
+
+        font-size: 14px;
+    }
+
+}
