@@ -147,9 +147,7 @@ function displayWatchlist(watchlist) {
             item.movie || item;
 
 
-        const movieId =
-            movie.id ||
-            item.movie_id;
+   const movieId = item.movie_id ?? item.movie?.id ?? movie.id;
 
 
         const title =
