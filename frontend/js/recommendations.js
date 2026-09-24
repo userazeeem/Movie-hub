@@ -1,24 +1,19 @@
-/* =====================================================
-   MOVIE-HUB
-   RECOMMENDATIONS JAVASCRIPT
-===================================================== */
-
 const API_URL = "http://localhost:5000/api";
 
 const token = localStorage.getItem("token");
 
-const storedUser =
-    JSON.parse(localStorage.getItem("user")) || {};
+let storedUser = {};
+
+try {
+    storedUser = JSON.parse(localStorage.getItem("user")) || {};
+} catch (error) {
+    storedUser = {};
+}
 
 const currentUserId =
     storedUser.id ||
     storedUser.user_id ||
     null;
-
-
-/* =====================================================
-   LOGIN CHECK
-===================================================== */
 
 if (!token) {
     window.location.href = "login.html";
@@ -29,84 +24,79 @@ if (!token) {
    DOM ELEMENTS
 ===================================================== */
 
-const recommendationsContainer =
-    document.getElementById(
-        "recommendationsContainer"
-    );
-
-const recommendationFormSection =
-    document.getElementById(
-        "recommendationFormSection"
-    );
-
 const showAddFormButton =
-    document.getElementById(
-        "showAddFormButton"
-    );
+    document.getElementById("showAddFormButton");
 
 const closeFormButton =
-    document.getElementById(
-        "closeFormButton"
-    );
+    document.getElementById("closeFormButton");
 
 const cancelRecommendationButton =
-    document.getElementById(
-        "cancelRecommendationButton"
-    );
+    document.getElementById("cancelRecommendationButton");
+
+const recommendationFormSection =
+    document.getElementById("recommendationFormSection");
 
 const recommendationForm =
-    document.getElementById(
-        "recommendationForm"
-    );
+    document.getElementById("recommendationForm");
+
+const movieSearch =
+    document.getElementById("movieSearch");
+
+const movieSearchResults =
+    document.getElementById("movieSearchResults");
 
 const movieSelect =
-    document.getElementById(
-        "movieSelect"
-    );
+    document.getElementById("movieSelect");
+
+const selectedMovie =
+    document.getElementById("selectedMovie");
+
+const selectedMovieTitle =
+    document.getElementById("selectedMovieTitle");
+
+const clearSelectedMovie =
+    document.getElementById("clearSelectedMovie");
 
 const recommendationText =
-    document.getElementById(
-        "recommendationText"
-    );
+    document.getElementById("recommendationText");
 
 const submitRecommendationButton =
-    document.getElementById(
-        "submitRecommendationButton"
-    );
+    document.getElementById("submitRecommendationButton");
 
 const formMessage =
-    document.getElementById(
-        "formMessage"
-    );
+    document.getElementById("formMessage");
+
+const recommendationsContainer =
+    document.getElementById("recommendationsContainer");
 
 const logoutButton =
-    document.getElementById(
-        "logoutButton"
-    );
+    document.getElementById("logoutButton");
 
 
 /* =====================================================
-   SHOW FORM
+   MOVIE DATA
 ===================================================== */
 
-showAddFormButton.addEventListener(
-    "click",
-    async () => {
+let movies = [];
 
-        recommendationFormSection.classList.remove(
-            "hidden"
-        );
 
-        showAddFormButton.style.display = "none";
+/* =====================================================
+   SHOW RECOMMENDATION FORM
+===================================================== */
 
-        await loadMovies();
+showAddFormButton.addEventListener("click", () => {
 
-        recommendationFormSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-);
+    recommendationFormSection.classList.remove("hidden");
+
+    recommendationFormSection.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    setTimeout(() => {
+        movieSearch.focus();
+    }, 300);
+});
 
 
 /* =====================================================
@@ -115,14 +105,19 @@ showAddFormButton.addEventListener(
 
 function closeRecommendationForm() {
 
-    recommendationFormSection.classList.add(
-        "hidden"
-    );
-
-    showAddFormButton.style.display =
-        "inline-flex";
+    recommendationFormSection.classList.add("hidden");
 
     recommendationForm.reset();
+
+    movieSelect.value = "";
+
+    selectedMovieTitle.textContent = "";
+
+    selectedMovie.classList.add("hidden");
+
+    movieSearchResults.innerHTML = "";
+
+    movieSearchResults.classList.remove("show");
 
     formMessage.textContent = "";
 }
@@ -149,17 +144,25 @@ async function loadMovies() {
     try {
 
         const response =
-            await fetch(
-                `${API_URL}/movies`
-            );
+            await fetch(`${API_URL}/movies`);
 
         const data =
             await response.json();
 
         console.log(
-            "Movies response:",
+            "========== MOVIES DEBUG =========="
+        );
+
+        console.log(
+            "API response:",
             data
         );
+
+        console.log(
+            "Is array:",
+            Array.isArray(data)
+        );
+
 
         if (!response.ok) {
 
@@ -170,49 +173,540 @@ async function loadMovies() {
         }
 
 
-        const movies =
-            Array.isArray(data)
-                ? data
-                : data.movies || [];
+        /*
+         * Handle different API response formats
+         */
+
+        if (Array.isArray(data)) {
+
+            movies = data;
+
+        }
+
+        else if (
+            data &&
+            Array.isArray(data.movies)
+        ) {
+
+            movies = data.movies;
+
+        }
+
+        else if (
+            data &&
+            Array.isArray(data.data)
+        ) {
+
+            movies = data.data;
+
+        }
+
+        else {
+
+            movies = [];
+
+        }
 
 
-        movieSelect.innerHTML = `
-            <option value="">
-                Choose a movie...
-            </option>
-        `;
+        console.log(
+            "MOVIES ARRAY:",
+            movies
+        );
+
+        console.log(
+            "MOVIE COUNT:",
+            movies.length
+        );
 
 
-        movies.forEach(movie => {
+        if (movies.length > 0) {
 
-            const option =
-                document.createElement("option");
-
-            option.value = movie.id;
-
-            option.textContent =
-                movie.title;
-
-            movieSelect.appendChild(
-                option
+            console.log(
+                "FIRST MOVIE:",
+                movies[0]
             );
-        });
+
+            console.log(
+                "FIRST MOVIE TITLE:",
+                movies[0].title
+            );
+
+        }
 
 
-    } catch (error) {
+        console.log(
+            "=================================="
+        );
+
+    }
+
+    catch (error) {
 
         console.error(
             "Movie loading error:",
             error
         );
 
-        movieSelect.innerHTML = `
-            <option value="">
-                Could not load movies
-            </option>
-        `;
+        showFormMessage(
+            error.message ||
+            "Could not load movies.",
+            "error"
+        );
     }
 }
+
+
+/* =====================================================
+   SEARCH MOVIES
+===================================================== */
+
+movieSearch.addEventListener(
+    "input",
+    function () {
+
+        const searchTerm =
+            movieSearch.value
+                .trim()
+                .toLowerCase();
+
+
+        console.log(
+            "SEARCH TERM:",
+            searchTerm
+        );
+
+
+        /*
+         * Clear previously selected movie
+         * when user starts searching again.
+         */
+
+        movieSelect.value = "";
+
+        selectedMovie.classList.add(
+            "hidden"
+        );
+
+
+        if (searchTerm === "") {
+
+            movieSearchResults.innerHTML = "";
+
+            movieSearchResults.classList.remove(
+                "show"
+            );
+
+            return;
+        }
+
+
+        /*
+         * Find matching movies
+         */
+
+        const filteredMovies =
+            movies.filter(
+                function (movie) {
+
+                    if (!movie) {
+                        return false;
+                    }
+
+
+                    const title =
+                        String(
+                            movie.title || ""
+                        ).toLowerCase();
+
+
+                    return title.includes(
+                        searchTerm
+                    );
+
+                }
+            );
+
+
+        console.log(
+            "FILTERED MOVIES:",
+            filteredMovies
+        );
+
+
+        displayMovieSearchResults(
+            filteredMovies
+        );
+
+    }
+);
+
+
+/* =====================================================
+   DISPLAY SEARCH RESULTS
+===================================================== */
+
+function displayMovieSearchResults(
+    movieList
+) {
+
+    movieSearchResults.innerHTML = "";
+
+
+    /*
+     * No matching movies
+     */
+
+    if (!movieList.length) {
+
+        movieSearchResults.innerHTML = `
+            <div class="no-movie-results">
+                No movies found.
+            </div>
+        `;
+
+        movieSearchResults.classList.add(
+            "show"
+        );
+
+        return;
+    }
+
+
+    /*
+     * Display matching movies
+     */
+
+    movieList.forEach(
+        function (movie) {
+
+            const result =
+                document.createElement(
+                    "div"
+                );
+
+
+            result.className =
+                "movie-search-result";
+
+
+            const genre =
+                movie.genre ||
+                "Movie";
+
+
+            const year =
+                movie.release_year ||
+                "";
+
+
+            result.innerHTML = `
+                <div class="movie-search-result-title">
+                    ${escapeHTML(movie.title)}
+                </div>
+
+                <div class="movie-search-result-info">
+                    ${escapeHTML(genre)}
+                    ${
+                        year
+                            ? ` • ${escapeHTML(year)}`
+                            : ""
+                    }
+                </div>
+            `;
+
+
+            result.addEventListener(
+                "click",
+                function () {
+
+                    selectMovie(movie);
+
+                }
+            );
+
+
+            movieSearchResults.appendChild(
+                result
+            );
+
+        }
+    );
+
+
+    movieSearchResults.classList.add(
+        "show"
+    );
+}
+
+
+/* =====================================================
+   SELECT MOVIE
+===================================================== */
+
+function selectMovie(movie) {
+
+    console.log(
+        "SELECTED MOVIE:",
+        movie
+    );
+
+
+    /*
+     * Store movie ID in hidden input
+     */
+
+    movieSelect.value =
+        movie.id;
+
+
+    /*
+     * Show movie title in search box
+     */
+
+    movieSearch.value =
+        movie.title;
+
+
+    /*
+     * Show selected movie
+     */
+
+    selectedMovieTitle.textContent =
+        movie.title;
+
+
+    selectedMovie.classList.remove(
+        "hidden"
+    );
+
+
+    /*
+     * Hide search results
+     */
+
+    movieSearchResults.innerHTML = "";
+
+    movieSearchResults.classList.remove(
+        "show"
+    );
+}
+
+
+/* =====================================================
+   CLEAR SELECTED MOVIE
+===================================================== */
+
+clearSelectedMovie.addEventListener(
+    "click",
+    function () {
+
+        movieSelect.value = "";
+
+        movieSearch.value = "";
+
+        selectedMovieTitle.textContent = "";
+
+        selectedMovie.classList.add(
+            "hidden"
+        );
+
+        movieSearchResults.innerHTML = "";
+
+        movieSearchResults.classList.remove(
+            "show"
+        );
+
+        movieSearch.focus();
+
+    }
+);
+
+
+/* =====================================================
+   ADD RECOMMENDATION
+===================================================== */
+
+recommendationForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        const movieId =
+            movieSelect.value;
+
+
+        const text =
+            recommendationText.value.trim();
+
+
+        /*
+         * Check movie
+         */
+
+        if (!movieId) {
+
+            showFormMessage(
+                "Please search and select a movie.",
+                "error"
+            );
+
+            movieSearch.focus();
+
+            return;
+        }
+
+
+        /*
+         * Check recommendation text
+         */
+
+        if (!text) {
+
+            showFormMessage(
+                "Please write why you recommend this movie.",
+                "error"
+            );
+
+            recommendationText.focus();
+
+            return;
+        }
+
+
+        submitRecommendationButton.disabled =
+            true;
+
+
+        submitRecommendationButton.textContent =
+            "POSTING...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/recommendations/add`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json",
+
+                            "Authorization":
+                                `Bearer ${token}`
+                        },
+
+                        body: JSON.stringify({
+
+                            movie_id:
+                                Number(movieId),
+
+                            recommendation_text:
+                                text
+
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Recommendation response:",
+                data
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Failed to post recommendation."
+                );
+            }
+
+
+            showFormMessage(
+                "Recommendation posted successfully!",
+                "success"
+            );
+
+
+            /*
+             * Reload recommendations
+             */
+
+            await loadRecommendations();
+
+
+            /*
+             * Reset form
+             */
+
+            recommendationForm.reset();
+
+            movieSelect.value = "";
+
+            selectedMovieTitle.textContent = "";
+
+            selectedMovie.classList.add(
+                "hidden"
+            );
+
+            movieSearchResults.innerHTML = "";
+
+            movieSearchResults.classList.remove(
+                "show"
+            );
+
+
+            /*
+             * Close form after short delay
+             */
+
+            setTimeout(
+                function () {
+
+                    closeRecommendationForm();
+
+                },
+                800
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Recommendation error:",
+                error
+            );
+
+            showFormMessage(
+                error.message ||
+                "Could not post recommendation.",
+                "error"
+            );
+
+        }
+
+        finally {
+
+            submitRecommendationButton.disabled =
+                false;
+
+            submitRecommendationButton.textContent =
+                "POST RECOMMENDATION";
+
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -228,8 +722,10 @@ async function loadRecommendations() {
                 `${API_URL}/recommendations`
             );
 
+
         const data =
             await response.json();
+
 
         console.log(
             "Recommendations response:",
@@ -246,30 +742,52 @@ async function loadRecommendations() {
         }
 
 
-        const recommendations =
-            Array.isArray(data)
-                ? data
-                : data.recommendations || [];
+        let recommendations = [];
+
+
+        if (Array.isArray(data)) {
+
+            recommendations = data;
+
+        }
+
+        else if (
+            data &&
+            Array.isArray(data.recommendations)
+        ) {
+
+            recommendations =
+                data.recommendations;
+
+        }
+
+        else if (
+            data &&
+            Array.isArray(data.data)
+        ) {
+
+            recommendations =
+                data.data;
+
+        }
 
 
         displayRecommendations(
             recommendations
         );
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "Recommendation loading error:",
             error
         );
 
+
         recommendationsContainer.innerHTML = `
             <div class="recommendations-message">
-
-                <div class="empty-icon">
-                    🎬
-                </div>
 
                 <h2>
                     Could not load recommendations
@@ -296,7 +814,6 @@ function displayRecommendations(
     if (!recommendations.length) {
 
         recommendationsContainer.innerHTML = `
-
             <div class="recommendations-message">
 
                 <div class="empty-icon">
@@ -308,32 +825,34 @@ function displayRecommendations(
                 </h2>
 
                 <p>
-                    Be the first to recommend a movie
-                    to the Movie-Hub community.
+                    Be the first to recommend
+                    a movie to the community.
                 </p>
 
             </div>
-
         `;
 
         return;
     }
 
 
-    recommendationsContainer.innerHTML = "";
+    recommendationsContainer.innerHTML =
+        "";
 
 
     recommendations.forEach(
-        recommendation => {
+        function (recommendation) {
 
             const card =
                 createRecommendationCard(
                     recommendation
                 );
 
+
             recommendationsContainer.appendChild(
                 card
             );
+
         }
     );
 }
@@ -346,18 +865,6 @@ function displayRecommendations(
 function createRecommendationCard(
     recommendation
 ) {
-
-    const card =
-        document.createElement("article");
-
-    card.className =
-        "recommendation-card";
-
-
-    /*
-       Support different possible
-       backend response structures.
-    */
 
     const recommendationId =
         recommendation.id ||
@@ -380,13 +887,13 @@ function createRecommendationCard(
         recommendation.username ||
         recommendation.user?.username ||
         recommendation.recommended_by ||
-        "Movie-Hub User";
+        "Unknown User";
 
 
-    const text =
+    const recommendationText =
         recommendation.recommendation_text ||
         recommendation.text ||
-        "No recommendation text available.";
+        "No recommendation text.";
 
 
     const userId =
@@ -394,34 +901,47 @@ function createRecommendationCard(
         recommendation.user?.id;
 
 
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "recommendation-card";
+
+
     card.innerHTML = `
 
         <div class="recommendation-movie">
 
-            <h3>
-                ${escapeHTML(movieTitle)}
-            </h3>
+            <span class="movie-icon">
+                🎬
+            </span>
+
+            <div>
+
+                <h3>
+                    ${escapeHTML(movieTitle)}
+                </h3>
+
+                <p>
+                    RECOMMENDED BY
+
+                    <strong>
+                        ${escapeHTML(username)}
+                    </strong>
+                </p>
+
+            </div>
 
         </div>
 
 
         <div class="recommendation-content">
 
-            <p class="recommended-by">
-
-                RECOMMENDED BY
-
-                <strong>
-                    ${escapeHTML(username)}
-                </strong>
-
-            </p>
-
-
             <p class="recommendation-text">
-
-                ${escapeHTML(text)}
-
+                "${escapeHTML(recommendationText)}"
             </p>
 
 
@@ -429,32 +949,34 @@ function createRecommendationCard(
 
                 <button
                     class="view-movie-button"
-                    data-movie-id="${movieId || ""}"
-                >
+                    data-movie-id="${movieId}">
                     VIEW MOVIE
                 </button>
 
 
                 <button
                     class="comment-button"
-                    data-recommendation-id="${recommendationId}"
-                >
+                    data-recommendation-id="${recommendationId}">
                     COMMENTS
                 </button>
 
+
                 ${
-                    Number(userId) === Number(currentUserId)
-                    ?
-                    `
+                    currentUserId &&
+                    Number(currentUserId) ===
+                    Number(userId)
+
+                    ? `
+
                     <button
                         class="delete-recommendation-button"
-                        data-recommendation-id="${recommendationId}"
-                    >
+                        data-recommendation-id="${recommendationId}">
                         DELETE
                     </button>
+
                     `
-                    :
-                    ""
+
+                    : ""
                 }
 
             </div>
@@ -463,40 +985,7 @@ function createRecommendationCard(
             <div
                 class="comments-section"
                 id="comments-${recommendationId}"
-                style="display: none;"
-            >
-
-                <h4>
-                    COMMENTS
-                </h4>
-
-                <div class="comments-list">
-                    Loading comments...
-                </div>
-
-
-                <form
-                    class="comment-form"
-                    data-recommendation-id="${recommendationId}"
-                >
-
-                    <input
-                        type="text"
-                        class="comment-input"
-                        placeholder="Write a comment..."
-                        maxlength="300"
-                        required
-                    >
-
-                    <button
-                        type="submit"
-                        class="comment-submit-button"
-                    >
-                        POST
-                    </button>
-
-                </form>
-
+                style="display:none;">
             </div>
 
         </div>
@@ -504,9 +993,7 @@ function createRecommendationCard(
     `;
 
 
-    /* =================================================
-       VIEW MOVIE
-    ================================================= */
+    /* VIEW MOVIE */
 
     const viewButton =
         card.querySelector(
@@ -514,29 +1001,22 @@ function createRecommendationCard(
         );
 
 
-    viewButton.addEventListener(
-        "click",
-        () => {
+    if (viewButton) {
 
-            if (!movieId) {
+        viewButton.addEventListener(
+            "click",
+            function () {
 
-                alert(
-                    "Movie information is unavailable."
-                );
+                window.location.href =
+                    `movie.html?id=${movieId}`;
 
-                return;
             }
+        );
+
+    }
 
 
-            window.location.href =
-                `movie.html?id=${movieId}`;
-        }
-    );
-
-
-    /* =================================================
-       COMMENTS BUTTON
-    ================================================= */
+    /* COMMENTS */
 
     const commentButton =
         card.querySelector(
@@ -544,43 +1024,23 @@ function createRecommendationCard(
         );
 
 
-    commentButton.addEventListener(
-        "click",
-        async () => {
+    if (commentButton) {
 
-            const commentsSection =
-                card.querySelector(
-                    ".comments-section"
+        commentButton.addEventListener(
+            "click",
+            function () {
+
+                toggleComments(
+                    recommendationId
                 );
 
-
-            const isHidden =
-                commentsSection.style.display ===
-                "none";
-
-
-            if (isHidden) {
-
-                commentsSection.style.display =
-                    "block";
-
-                await loadComments(
-                    recommendationId,
-                    commentsSection
-                );
-
-            } else {
-
-                commentsSection.style.display =
-                    "none";
             }
-        }
-    );
+        );
+
+    }
 
 
-    /* =================================================
-       DELETE RECOMMENDATION
-    ================================================= */
+    /* DELETE */
 
     const deleteButton =
         card.querySelector(
@@ -592,29 +1052,308 @@ function createRecommendationCard(
 
         deleteButton.addEventListener(
             "click",
-            async () => {
+            function () {
 
-                await deleteRecommendation(
+                deleteRecommendation(
                     recommendationId
                 );
+
             }
         );
+
     }
 
 
-    /* =================================================
-       COMMENT FORM
-    ================================================= */
+    return card;
+}
+
+
+/* =====================================================
+   TOGGLE COMMENTS
+===================================================== */
+
+async function toggleComments(
+    recommendationId
+) {
+
+    const commentsSection =
+        document.getElementById(
+            `comments-${recommendationId}`
+        );
+
+
+    if (!commentsSection) {
+        return;
+    }
+
+
+    /*
+     * Close if already open
+     */
+
+    if (
+        commentsSection.style.display ===
+        "block"
+    ) {
+
+        commentsSection.style.display =
+            "none";
+
+        return;
+    }
+
+
+    commentsSection.style.display =
+        "block";
+
+
+    commentsSection.innerHTML = `
+
+        <div class="loading">
+
+            <div class="loading-spinner"></div>
+
+            <p>
+                Loading comments...
+            </p>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/comments/${recommendationId}`,
+                {
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load comments."
+            );
+        }
+
+
+        const comments =
+            Array.isArray(data)
+                ? data
+                : data.comments || [];
+
+
+        displayComments(
+            recommendationId,
+            comments
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Comment loading error:",
+            error
+        );
+
+
+        commentsSection.innerHTML = `
+            <p class="no-comments">
+                Could not load comments.
+            </p>
+        `;
+    }
+}
+
+
+/* =====================================================
+   DISPLAY COMMENTS
+===================================================== */
+
+function displayComments(
+    recommendationId,
+    comments
+) {
+
+    const commentsSection =
+        document.getElementById(
+            `comments-${recommendationId}`
+        );
+
+
+    if (!commentsSection) {
+        return;
+    }
+
+
+    commentsSection.innerHTML = "";
+
+
+    /*
+     * No comments
+     */
+
+    if (!comments.length) {
+
+        commentsSection.innerHTML = `
+            <p class="no-comments">
+                No comments yet.
+                Be the first to comment!
+            </p>
+        `;
+    }
+
+
+    /*
+     * Display comments
+     */
+
+    comments.forEach(
+        function (comment) {
+
+            const commentId =
+                comment.id ||
+                comment.comment_id;
+
+
+            const username =
+                comment.username ||
+                comment.user?.username ||
+                "User";
+
+
+            const commentText =
+                comment.comment_text ||
+                comment.text ||
+                "";
+
+
+            const commentUserId =
+                comment.user_id ||
+                comment.user?.id;
+
+
+            const commentElement =
+                document.createElement(
+                    "div"
+                );
+
+
+            commentElement.className =
+                "comment-item";
+
+
+            commentElement.innerHTML = `
+
+                <div class="comment-user">
+                    ${escapeHTML(username)}
+                </div>
+
+                <div class="comment-text">
+                    ${escapeHTML(commentText)}
+                </div>
+
+                ${
+                    currentUserId &&
+                    Number(currentUserId) ===
+                    Number(commentUserId)
+
+                    ? `
+
+                    <button
+                        class="delete-comment-button"
+                        data-comment-id="${commentId}">
+                        DELETE
+                    </button>
+
+                    `
+
+                    : ""
+                }
+
+            `;
+
+
+            const deleteCommentButton =
+                commentElement.querySelector(
+                    ".delete-comment-button"
+                );
+
+
+            if (deleteCommentButton) {
+
+                deleteCommentButton.addEventListener(
+                    "click",
+                    function () {
+
+                        deleteComment(
+                            commentId,
+                            recommendationId
+                        );
+
+                    }
+                );
+
+            }
+
+
+            commentsSection.appendChild(
+                commentElement
+            );
+
+        }
+    );
+
+
+    /*
+     * Comment form
+     */
 
     const commentForm =
-        card.querySelector(
-            ".comment-form"
+        document.createElement(
+            "form"
         );
+
+
+    commentForm.className =
+        "comment-form";
+
+
+    commentForm.innerHTML = `
+
+        <input
+            type="text"
+            class="comment-input"
+            placeholder="Write a comment..."
+            maxlength="300"
+            required
+        >
+
+        <button
+            type="submit"
+            class="comment-submit-button">
+            POST
+        </button>
+
+    `;
 
 
     commentForm.addEventListener(
         "submit",
-        async event => {
+        async function (event) {
 
             event.preventDefault();
 
@@ -630,163 +1369,82 @@ function createRecommendationCard(
 
 
             if (!commentText) {
-
                 return;
             }
 
 
-            await addComment(
-                recommendationId,
-                commentText,
-                input,
-                card
-            );
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/comments/add/${recommendationId}`,
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${token}`
+                            },
+
+                            body: JSON.stringify({
+                                comment_text:
+                                    commentText
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to add comment."
+                    );
+                }
+
+
+                /*
+                 * Reload comments
+                 */
+
+                commentsSection.style.display =
+                    "none";
+
+
+                await toggleComments(
+                    recommendationId
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Comment error:",
+                    error
+                );
+
+                alert(
+                    error.message ||
+                    "Could not add comment."
+                );
+            }
+
         }
     );
 
 
-    return card;
+    commentsSection.appendChild(
+        commentForm
+    );
 }
-
-
-/* =====================================================
-   ADD RECOMMENDATION
-===================================================== */
-
-recommendationForm.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-
-        const movieId =
-            Number(movieSelect.value);
-
-
-        const text =
-            recommendationText.value.trim();
-
-
-        if (!movieId) {
-
-            showFormMessage(
-                "Please select a movie.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        if (!text) {
-
-            showFormMessage(
-                "Please write a recommendation.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        submitRecommendationButton.disabled =
-            true;
-
-        submitRecommendationButton.textContent =
-            "POSTING...";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/recommendations/add`,
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json",
-
-                            "Authorization":
-                                `Bearer ${token}`
-                        },
-
-                        body: JSON.stringify({
-
-                            movie_id:
-                                movieId,
-
-                            recommendation_text:
-                                text
-                        })
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            console.log(
-                "Add recommendation response:",
-                data
-            );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.message ||
-                    "Could not add recommendation."
-                );
-            }
-
-
-            showFormMessage(
-                "Recommendation posted successfully!",
-                "success"
-            );
-
-
-            recommendationForm.reset();
-
-
-            await loadRecommendations();
-
-
-            setTimeout(
-                closeRecommendationForm,
-                800
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "Add recommendation error:",
-                error
-            );
-
-
-            showFormMessage(
-                error.message ||
-                "Could not post recommendation.",
-                "error"
-            );
-
-
-        } finally {
-
-            submitRecommendationButton.disabled =
-                false;
-
-            submitRecommendationButton.textContent =
-                "POST RECOMMENDATION";
-        }
-    }
-);
 
 
 /* =====================================================
@@ -796,24 +1454,6 @@ recommendationForm.addEventListener(
 async function deleteRecommendation(
     recommendationId
 ) {
-
-    if (!recommendationId) {
-
-        return;
-    }
-
-
-    const confirmed =
-        confirm(
-            "Delete this recommendation?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-    }
-
 
     try {
 
@@ -835,12 +1475,6 @@ async function deleteRecommendation(
             await response.json();
 
 
-        console.log(
-            "Delete recommendation response:",
-            data
-        );
-
-
         if (!response.ok) {
 
             throw new Error(
@@ -852,302 +1486,18 @@ async function deleteRecommendation(
 
         await loadRecommendations();
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "Delete recommendation error:",
             error
         );
 
-
         alert(
             error.message ||
             "Could not delete recommendation."
-        );
-    }
-}
-
-
-/* =====================================================
-   LOAD COMMENTS
-===================================================== */
-
-async function loadComments(
-    recommendationId,
-    commentsSection
-) {
-
-    const commentsList =
-        commentsSection.querySelector(
-            ".comments-list"
-        );
-
-
-    commentsList.innerHTML =
-        "Loading comments...";
-
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_URL}/comments/${recommendationId}`,
-                {
-                    method: "GET",
-
-                    headers: {
-                        "Authorization":
-                            `Bearer ${token}`
-                    }
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Comments response:",
-            data
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message ||
-                "Failed to load comments."
-            );
-        }
-
-
-        const comments =
-            Array.isArray(data)
-                ? data
-                : data.comments || [];
-
-
-        displayComments(
-            comments,
-            commentsList
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Comments loading error:",
-            error
-        );
-
-
-        commentsList.innerHTML = `
-            <p class="comment-text">
-                ${escapeHTML(error.message)}
-            </p>
-        `;
-    }
-}
-
-
-/* =====================================================
-   DISPLAY COMMENTS
-===================================================== */
-
-function displayComments(
-    comments,
-    container
-) {
-
-    if (!comments.length) {
-
-        container.innerHTML = `
-            <p class="comment-text">
-                No comments yet. Be the first!
-            </p>
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML = "";
-
-
-    comments.forEach(comment => {
-
-        const commentId =
-            comment.id ||
-            comment.comment_id;
-
-
-        const userId =
-            comment.user_id ||
-            comment.user?.id;
-
-
-        const username =
-            comment.username ||
-            comment.user?.username ||
-            "User";
-
-
-        const text =
-            comment.comment_text ||
-            comment.text ||
-            "";
-
-
-        const item =
-            document.createElement("div");
-
-
-        item.className =
-            "comment-item";
-
-
-        item.innerHTML = `
-
-            <div class="comment-user">
-
-                @${escapeHTML(username)}
-
-            </div>
-
-
-            <p class="comment-text">
-
-                ${escapeHTML(text)}
-
-            </p>
-
-            ${
-                Number(userId) === Number(currentUserId)
-                ?
-                `
-                <button
-                    class="delete-comment-button"
-                    data-comment-id="${commentId}"
-                >
-                    Delete
-                </button>
-                `
-                :
-                ""
-            }
-
-        `;
-
-
-        const deleteButton =
-            item.querySelector(
-                ".delete-comment-button"
-            );
-
-
-        if (deleteButton) {
-
-            deleteButton.addEventListener(
-                "click",
-                async () => {
-
-                    await deleteComment(
-                        commentId,
-                        container
-                    );
-                }
-            );
-        }
-
-
-        container.appendChild(item);
-    });
-}
-
-
-/* =====================================================
-   ADD COMMENT
-===================================================== */
-
-async function addComment(
-    recommendationId,
-    commentText,
-    input,
-    card
-) {
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_URL}/comments/add/${recommendationId}`,
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${token}`
-                    },
-
-                    body: JSON.stringify({
-
-                        comment_text:
-                            commentText
-                    })
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        console.log(
-            "Add comment response:",
-            data
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                data.message ||
-                "Could not add comment."
-            );
-        }
-
-
-        input.value = "";
-
-
-        const commentsSection =
-            card.querySelector(
-                ".comments-section"
-            );
-
-
-        await loadComments(
-            recommendationId,
-            commentsSection
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Add comment error:",
-            error
-        );
-
-
-        alert(
-            error.message ||
-            "Could not add comment."
         );
     }
 }
@@ -1159,20 +1509,8 @@ async function addComment(
 
 async function deleteComment(
     commentId,
-    commentsContainer
+    recommendationId
 ) {
-
-    const confirmed =
-        confirm(
-            "Delete this comment?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-    }
-
 
     try {
 
@@ -1194,12 +1532,6 @@ async function deleteComment(
             await response.json();
 
 
-        console.log(
-            "Delete comment response:",
-            data
-        );
-
-
         if (!response.ok) {
 
             throw new Error(
@@ -1209,41 +1541,32 @@ async function deleteComment(
         }
 
 
-        /*
-           Reload comments after deletion.
-           Find the recommendation ID from
-           the surrounding section.
-        */
-
         const commentsSection =
-            commentsContainer.closest(
-                ".comments-section"
+            document.getElementById(
+                `comments-${recommendationId}`
             );
 
 
         if (commentsSection) {
 
-            const recommendationId =
-                commentsSection.id.replace(
-                    "comments-",
-                    ""
-                );
+            commentsSection.style.display =
+                "none";
 
-
-            await loadComments(
-                recommendationId,
-                commentsSection
-            );
         }
 
 
-    } catch (error) {
+        await toggleComments(
+            recommendationId
+        );
+
+    }
+
+    catch (error) {
 
         console.error(
             "Delete comment error:",
             error
         );
-
 
         alert(
             error.message ||
@@ -1266,16 +1589,10 @@ function showFormMessage(
         message;
 
 
-    if (type === "success") {
-
-        formMessage.style.color =
-            "#65e56b";
-
-    } else {
-
-        formMessage.style.color =
-            "#ff5964";
-    }
+    formMessage.style.color =
+        type === "success"
+            ? "#7cff7c"
+            : "#ff7070";
 }
 
 
@@ -1285,30 +1602,29 @@ function showFormMessage(
 
 logoutButton.addEventListener(
     "click",
-    () => {
+    function () {
 
-        localStorage.removeItem(
-            "token"
-        );
+        localStorage.removeItem("token");
 
-        localStorage.removeItem(
-            "user"
-        );
+        localStorage.removeItem("user");
 
         window.location.href =
             "login.html";
+
     }
 );
 
 
 /* =====================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     div.textContent =
         value ?? "";
@@ -1318,7 +1634,31 @@ function escapeHTML(value) {
 
 
 /* =====================================================
-   INITIAL LOAD
+   INITIALIZE
 ===================================================== */
 
-loadRecommendations();
+async function initialize() {
+
+    /*
+     * Load movies FIRST.
+     * This is important because the
+     * movie search depends on this array.
+     */
+
+    await loadMovies();
+
+
+    /*
+     * Then load recommendations.
+     */
+
+    await loadRecommendations();
+
+}
+
+
+/* =====================================================
+   START MOVIE-HUB
+===================================================== */
+
+initialize();

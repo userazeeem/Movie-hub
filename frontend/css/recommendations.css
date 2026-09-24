@@ -1450,3 +1450,120 @@ footer {
     }
 
 }
+/* =====================================================
+   MOVIE SEARCH
+===================================================== */
+
+.movie-search-wrapper {
+    position: relative;
+}
+
+#movieSearch {
+    width: 100%;
+    padding: 14px 16px;
+    background: #090909;
+    color: #ffffff;
+    border: 1px solid #292929;
+    border-radius: 7px;
+    outline: none;
+    font-size: 13px;
+    transition: 0.25s ease;
+}
+
+#movieSearch::placeholder {
+    color: #666;
+}
+
+#movieSearch:focus {
+    border-color: rgba(229, 9, 26, 0.7);
+    box-shadow: 0 0 20px rgba(229, 9, 26, 0.08);
+}
+
+.movie-search-results {
+    margin-top: 6px;
+    background: #0c0c0c;
+    border: 1px solid #252525;
+    border-radius: 7px;
+    overflow: hidden;
+    display: none;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.movie-search-results.show {
+    display: block;
+}
+
+.movie-search-result {
+    padding: 13px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #1c1c1c;
+    transition: 0.2s ease;
+}
+
+.movie-search-result:last-child {
+    border-bottom: none;
+}
+
+.movie-search-result:hover {
+    background: #151515;
+    padding-left: 19px;
+}
+
+.movie-search-result-title {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.movie-search-result-info {
+    margin-top: 4px;
+    color: #666;
+    font-size: 10px;
+}
+
+.no-movie-results {
+    padding: 15px;
+    color: #666;
+    font-size: 11px;
+}
+
+.selected-movie {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(229, 9, 26, 0.08);
+    border: 1px solid rgba(229, 9, 26, 0.25);
+    border-radius: 7px;
+}
+
+.selected-movie.hidden {
+    display: none;
+}
+
+.selected-movie span {
+    color: #777;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.selected-movie strong {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+#clearSelectedMovie {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#clearSelectedMovie:hover {
+    color: #e5091a;
+}

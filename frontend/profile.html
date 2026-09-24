@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile | Movie-Hub</title>
+
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            <span class="logo-mark">M</span>
+
+            <span class="logo-text">
+                MOVIE<span>-HUB</span>
+            </span>
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="watchlist.html">
+                Watchlist
+            </a>
+
+            <a href="recommendations.html">
+                Recommendations
+            </a>
+
+            <a href="profile.html" class="active">
+                Profile
+            </a>
+
+        </nav>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button">
+
+            Logout
+
+        </button>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+    <main class="profile-page">
+
+        <!-- ACCOUNT HEADER -->
+        <section class="account-header">
+
+            <div class="account-left">
+
+                <div class="profile-avatar">
+                    <span id="avatarLetter">U</span>
+                </div>
+
+
+                <div class="account-info">
+
+                    <div class="section-label">
+                        <span></span>
+                        ACCOUNT
+                    </div>
+
+                    <h1 id="profileUsername">
+                        Loading...
+                    </h1>
+
+                    <p id="profileEmail">
+                        Loading...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="member-badge">
+                MOVIE-HUB<br>
+                MEMBER
+            </div>
+
+        </section>
+
+
+
+        <!-- STATISTICS -->
+        <section class="stats-section">
+
+            <div class="stat-card">
+
+                <span
+                    class="stat-number"
+                    id="watchlistCount">
+
+                    0
+
+                </span>
+
+                <span class="stat-label">
+                    WATCHLIST
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span
+                    class="stat-number"
+                    id="recommendationCount">
+
+                    0
+
+                </span>
+
+                <span class="stat-label">
+                    MY PICKS
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span
+                    class="stat-number"
+                    id="followersCount">
+
+                    0
+
+                </span>
+
+                <span class="stat-label">
+                    FOLLOWERS
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span
+                    class="stat-number"
+                    id="followingCount">
+
+                    0
+
+                </span>
+
+                <span class="stat-label">
+                    FOLLOWING
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- MY PICKS -->
+        <section class="picks-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <div class="section-label">
+                        <span></span>
+                        MY PICKS
+                    </div>
+
+                    <h2>
+                        Movies I've Recommended
+                    </h2>
+
+                </div>
+
+
+                <a
+                    href="recommendations.html"
+                    class="view-all">
+
+                    VIEW ALL →
+
+                </a>
+
+            </div>
+
+
+            <div
+                id="myRecommendationsContainer"
+                class="recommendations-grid">
+
+                <div class="loading">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>
+                        Loading your recommendations...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- QUICK ACTIONS -->
+        <section class="quick-section">
+
+            <div class="section-label">
+                <span></span>
+                QUICK ACCESS
+            </div>
+
+
+            <div class="quick-actions">
+
+                <a
+                    href="watchlist.html"
+                    class="quick-card">
+
+                    <div class="quick-icon">
+                        +
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            My Watchlist
+                        </strong>
+
+                        <span>
+                            View saved movies
+                        </span>
+
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+
+                <a
+                    href="recommendations.html"
+                    class="quick-card crimson">
+
+                    <div class="quick-icon">
+                        +
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Recommend a Movie
+                        </strong>
+
+                        <span>
+                            Share your next pick
+                        </span>
+
+                    </div>
+
+                    <b>→</b>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+
+                    <span class="logo-mark">
+                        M
+                    </span>
+
+                    <span class="logo-text">
+                        MOVIE<span>-HUB</span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Discover. Save. Recommend.
+                </p>
+
+            </div>
+
+
+            <div class="footer-right">
+
+                <p>
+                    Your movies. Your collection.
+                </p>
+
+                <p class="copyright">
+                    © 2026 Movie-Hub
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/profile.js"></script>
+
+</body>
+
+</html>

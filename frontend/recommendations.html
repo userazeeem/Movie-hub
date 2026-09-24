@@ -157,27 +157,26 @@
             </div>
 
 
-            <form id="recommendationForm">
+           <div class="form-group">
+    <label for="movieSearch">Search Movie</label>
 
+    <input
+        type="text"
+        id="movieSearch"
+        placeholder="Search for a movie..."
+        autocomplete="off"
+    >
 
-                <div class="form-group">
+    <div id="movieSearchResults" class="movie-search-results"></div>
 
-                    <label for="movieSelect">
-                        Select Movie
-                    </label>
+    <input type="hidden" id="movieSelect" required>
+</div>
 
-                    <select
-                        id="movieSelect"
-                        required
-                    >
-
-                        <option value="">
-                            Choose a movie...
-                        </option>
-
-                    </select>
-
-                </div>
+<div id="selectedMovie" class="selected-movie hidden">
+    <span>Selected:</span>
+    <strong id="selectedMovieTitle"></strong>
+    <button type="button" id="clearSelectedMovie">×</button>
+</div>
 
 
                 <div class="form-group">
