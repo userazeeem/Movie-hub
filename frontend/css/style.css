@@ -1,6 +1,12 @@
-/* =====================================================
+/* =========================================================
+   MOVIE-HUB
+   CINEMATIC OBSIDIAN + CRIMSON THEME
+   ========================================================= */
+
+
+/* =========================
    RESET
-===================================================== */
+   ========================= */
 
 * {
     margin: 0;
@@ -13,419 +19,1003 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    background: #070707;
+    color: #ffffff;
 
-    background: #050505;
-
-    color: white;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
 }
 
 
-/* =====================================================
+/* =========================
    NAVBAR
-===================================================== */
+   ========================= */
 
 .navbar {
+    position: fixed;
 
-    height: 75px;
+    top: 0;
+    left: 0;
 
-    padding: 0 6%;
+    width: 100%;
+    height: 74px;
 
+    padding: 0 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 1000;
+
+    background:
+        rgba(7, 7, 7, 0.78);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================
+   LOGO
+   ========================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    font-weight: 900;
+}
+
+.logo-mark {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #d90416;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 22px rgba(217, 4, 22, 0.25);
+}
+
+.logo-text {
+    font-size: 20px;
+
+    letter-spacing: -0.8px;
+}
+
+.logo-text span {
+    color: #e5091a;
+}
+
+
+/* =========================
+   NAV LINKS
+   ========================= */
+
+.nav-links {
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
+    gap: 32px;
+}
 
-    position: sticky;
+.nav-links a {
+    position: relative;
 
-    top: 0;
+    color: #858585;
 
-    z-index: 100;
+    font-size: 13px;
+    font-weight: 600;
 
-    background: rgba(5, 5, 5, 0.92);
+    transition: 0.25s ease;
+}
 
-    backdrop-filter: blur(12px);
+.nav-links a:hover {
+    color: #ffffff;
+}
 
-    border-bottom: 1px solid #1b1b1b;
+.nav-links a.active {
+    color: #ffffff;
+}
+
+.nav-links a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: -9px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #e5091a;
+
+    transform: translateX(-50%);
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.8);
 }
 
 
-/* LOGO */
+/* =========================
+   NAV ACTIONS
+   ========================= */
 
-.logo {
-
-    font-size: 23px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-}
-
-.logo span {
-
-    color: #777;
-}
-
-
-/* NAV LINKS */
-
-nav {
-
+.nav-actions {
     display: flex;
 
-    gap: 35px;
+    align-items: center;
+
+    gap: 14px;
 }
 
-nav a {
 
-    color: #777;
+/* SEARCH */
 
-    text-decoration: none;
+.search-box {
+    width: 220px;
+    height: 38px;
 
-    font-size: 14px;
+    display: flex;
+    align-items: center;
 
-    transition: 0.25s;
+    padding: 0 12px;
+
+    background: #111111;
+
+    border:
+        1px solid #252525;
+
+    border-radius: 8px;
+
+    transition: 0.25s ease;
 }
 
-nav a:hover {
+.search-box:focus-within {
+    border-color: #555555;
 
-    color: white;
+    background: #151515;
 }
 
-nav a.active {
+.search-icon {
+    color: #777777;
 
-    color: white;
+    font-size: 21px;
+
+    margin-right: 7px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 12px;
+}
+
+.search-box input::placeholder {
+    color: #666666;
 }
 
 
 /* LOGOUT */
 
 .logout-button {
+    padding: 9px 15px;
 
-    padding: 9px 18px;
+    border: 1px solid #2b2b2b;
+
+    border-radius: 7px;
 
     background: transparent;
 
-    border: 1px solid #333;
+    color: #aaaaaa;
 
-    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
 
-    color: #aaa;
-
-    cursor: pointer;
-
-    transition: 0.25s;
+    transition: 0.25s ease;
 }
 
 .logout-button:hover {
+    background: #e5091a;
 
-    color: white;
+    border-color: #e5091a;
 
-    border-color: #777;
+    color: #ffffff;
 }
 
 
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+   ========================= */
 
 .hero {
+    position: relative;
 
-    min-height: 600px;
+    min-height: 790px;
 
     display: flex;
-
     align-items: center;
 
-    padding: 80px 8%;
-
-    position: relative;
+    padding:
+        120px 7% 90px;
 
     overflow: hidden;
 
     background:
-
         radial-gradient(
-            circle at 75% 40%,
-            rgba(255,255,255,0.10),
-            transparent 30%
+            ellipse at 78% 48%,
+            rgba(150, 0, 15, 0.15),
+            transparent 36%
         ),
 
         radial-gradient(
-            circle at 90% 80%,
-            rgba(255,255,255,0.05),
+            ellipse at 20% 40%,
+            rgba(255, 255, 255, 0.025),
             transparent 35%
         ),
 
-        #050505;
+        #070707;
 }
 
 
-/* cinematic lines */
+/* RED GLOW */
 
-.hero::after {
-
-    content: "";
-
+.hero-glow {
     position: absolute;
 
-    width: 600px;
+    width: 500px;
+    height: 500px;
 
-    height: 600px;
+    left: 42%;
+    top: 20%;
 
-    border: 1px solid #191919;
+    background:
+        rgba(218, 0, 20, 0.08);
+
+    filter: blur(110px);
 
     border-radius: 50%;
 
-    right: -150px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 
+/* =========================
+   HERO CONTENT
+   ========================= */
+
 .hero-content {
+    position: relative;
+
+    z-index: 5;
+
+    width: 53%;
 
     max-width: 650px;
+}
 
-    position: relative;
+
+/* BADGE */
+
+.hero-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 22px;
+
+    padding: 7px 12px;
+
+    border:
+        1px solid rgba(229, 9, 26, 0.3);
+
+    border-radius: 100px;
+
+    color: #cfcfcf;
+
+    background:
+        rgba(229, 9, 26, 0.05);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.hero-badge span {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #e5091a;
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.9);
+}
+
+
+/* TITLE */
+
+.hero h1 {
+    max-width: 650px;
+
+    font-size:
+        clamp(55px, 6vw, 88px);
+
+    line-height: 0.94;
+
+    letter-spacing: -4px;
+
+    font-weight: 300;
+
+    margin-bottom: 28px;
+}
+
+.hero h1 strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-weight: 800;
+}
+
+.hero h1 strong::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 55px;
+    height: 8px;
+
+    margin-left: 13px;
+
+    background: #e5091a;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 25px rgba(229, 9, 26, 0.45);
+}
+
+
+/* DESCRIPTION */
+
+.hero-content > p {
+    max-width: 510px;
+
+    color: #858585;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    margin-bottom: 32px;
+}
+
+
+/* =========================
+   HERO BUTTONS
+   ========================= */
+
+.hero-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 50px;
+}
+
+
+/* PRIMARY */
+
+.primary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    padding: 13px 19px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #e5091a;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 30px rgba(229, 9, 26, 0.18);
+
+    transition: 0.25s ease;
+}
+
+.primary-button span {
+    font-size: 17px;
+
+    transition: transform 0.25s ease;
+}
+
+.primary-button:hover {
+    background: #f20b1d;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 35px rgba(229, 9, 26, 0.28);
+}
+
+.primary-button:hover span {
+    transform: translateX(4px);
+}
+
+
+/* SECONDARY */
+
+.secondary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 18px;
+
+    border:
+        1px solid #2e2e2e;
+
+    border-radius: 7px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    color: #bbbbbb;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.secondary-button:hover {
+    border-color: #555555;
+
+    color: #ffffff;
+
+    background: #141414;
+}
+
+
+/* =========================
+   HERO STATS
+   ========================= */
+
+.hero-stats {
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+.stat {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.stat strong {
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 800;
+}
+
+.stat span {
+    color: #555555;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+.stat-line {
+    width: 1px;
+    height: 28px;
+
+    background: #252525;
+}
+
+
+/* =========================
+   HERO VISUAL
+   ========================= */
+
+.hero-visual {
+    position: absolute;
+
+    right: 6%;
+    top: 50%;
+
+    width: 500px;
+    height: 560px;
+
+    transform:
+        translateY(-46%);
 
     z-index: 2;
 }
 
 
-.hero-label {
+/* VISUAL GLOW */
 
-    color: #777;
+.visual-glow {
+    position: absolute;
 
-    font-size: 12px;
+    width: 360px;
+    height: 360px;
 
-    letter-spacing: 3px;
+    left: 100px;
+    top: 100px;
 
-    margin-bottom: 20px;
+    border-radius: 50%;
+
+    background:
+        rgba(229, 9, 26, 0.1);
+
+    filter: blur(70px);
+
+    z-index: -1;
 }
 
 
-.hero h1 {
+/* POSTERS */
 
-    font-size: clamp(45px, 7vw, 82px);
+.poster {
+    position: absolute;
 
-    line-height: 0.98;
-
-    letter-spacing: -3px;
-
-    margin-bottom: 30px;
-}
-
-
-.hero-description {
-
-    max-width: 520px;
-
-    color: #888;
-
-    line-height: 1.7;
-
-    font-size: 15px;
-
-    margin-bottom: 35px;
-}
-
-
-.hero-button {
-
-    padding: 14px 25px;
-
-    border: none;
-
-    border-radius: 6px;
-
-    background: white;
-
-    color: black;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition: 0.25s;
-}
-
-.hero-button:hover {
-
-    background: #ddd;
-
-    transform: translateY(-2px);
-}
-
-
-/* =====================================================
-   MOVIES SECTION
-===================================================== */
-
-.movies-section {
-
-    padding: 80px 6%;
-
-    background: #080808;
-}
-
-
-.section-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: end;
-
-    gap: 30px;
-
-    margin-bottom: 40px;
-}
-
-
-.section-label {
-
-    color: #666;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 8px;
-}
-
-
-.section-header h2 {
-
-    font-size: 38px;
-
-    letter-spacing: -1px;
-}
-
-
-/* SEARCH */
-
-.search-container input {
-
-    width: 280px;
-
-    padding: 13px 16px;
-
-    background: #111;
-
-    border: 1px solid #292929;
-
-    border-radius: 7px;
-
-    outline: none;
-
-    color: white;
-
-    font-size: 14px;
-
-    transition: 0.25s;
-}
-
-.search-container input:focus {
-
-    border-color: #666;
-}
-
-.search-container input::placeholder {
-
-    color: #555;
-}
-
-
-/* =====================================================
-   MOVIE GRID
-===================================================== */
-
-.movies-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(190px, 1fr));
-
-    gap: 25px;
-}
-
-
-/* =====================================================
-   MOVIE CARD
-===================================================== */
-
-.movie-card {
-
-    background: #101010;
-
-    border: 1px solid #1e1e1e;
+    width: 275px;
+    height: 410px;
 
     border-radius: 10px;
 
     overflow: hidden;
 
-    transition: 0.3s;
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.6);
+}
+
+
+/* BACK */
+
+.poster-back {
+    right: 100px;
+    top: 75px;
+
+    transform:
+        rotate(-12deg);
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #080808
+        );
+
+    border:
+        1px solid #292929;
+}
+
+
+/* MIDDLE */
+
+.poster-middle {
+    right: 35px;
+    top: 45px;
+
+    transform:
+        rotate(8deg);
+
+    background:
+        linear-gradient(
+            145deg,
+            #252525,
+            #0d0d0d
+        );
+
+    border:
+        1px solid #333333;
+}
+
+
+/* MAIN */
+
+.poster-main {
+    right: 80px;
+    top: 65px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #27070b 0%,
+            #12080a 35%,
+            #070707 100%
+        );
+
+    border:
+        1px solid rgba(255, 255, 255, 0.1);
+
+    transform:
+        rotate(-2deg);
+
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.8),
+        0 0 70px rgba(229, 9, 26, 0.08);
+}
+
+
+/* POSTER SHAPES */
+
+.poster-shape {
+    position: absolute;
+
+    width: 200px;
+    height: 200px;
+
+    border-radius: 50%;
+
+    right: -80px;
+    top: -50px;
+
+    background:
+        rgba(229, 9, 26, 0.12);
+
+    filter: blur(10px);
+}
+
+
+/* MAIN POSTER GRADIENT */
+
+.poster-gradient {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 75% 25%,
+            rgba(229, 9, 26, 0.3),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            to bottom,
+            transparent 30%,
+            rgba(0, 0, 0, 0.9)
+        );
+}
+
+
+/* POSTER CONTENT */
+
+.poster-content {
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 35px;
+}
+
+.poster-content > span {
+    color: #e5091a;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.poster-content h2 {
+    margin-top: 12px;
+
+    font-size: 42px;
+
+    line-height: 0.9;
+
+    letter-spacing: -2px;
+}
+
+.poster-line {
+    width: 35px;
+    height: 3px;
+
+    margin: 18px 0;
+
+    background: #e5091a;
+}
+
+.poster-content p {
+    color: #999999;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   MOVIES SECTION
+   ========================= */
+
+.movies-section {
+    position: relative;
+
+    padding: 100px 6% 120px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #070707,
+            #090909
+        );
+}
+
+
+/* SECTION TOP */
+
+.section-top {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 38px;
+}
+
+
+/* LABEL */
+
+.section-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+
+    color: #777777;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.section-label span {
+    width: 18px;
+    height: 2px;
+
+    background: #e5091a;
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.5);
+}
+
+
+/* HEADING */
+
+.section-top h2 {
+    font-size: 34px;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 7px;
+}
+
+.section-top p {
+    color: #5e5e5e;
+
+    font-size: 13px;
+}
+
+
+/* SECTION NUMBER */
+
+.section-number {
+    color: #292929;
+
+    font-size: 42px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+}
+
+
+/* =========================
+   MOVIE GRID
+   ========================= */
+
+.movies-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(210px, 1fr));
+
+    gap: 22px;
+}
+
+
+/* =========================
+   MOVIE CARD
+   ========================= */
+
+.movie-card {
+    position: relative;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border:
+        1px solid #1d1d1d;
+
+    border-radius: 9px;
+
+    min-height: 365px;
 
     cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .movie-card:hover {
-
     transform: translateY(-7px);
 
-    border-color: #444;
+    border-color:
+        rgba(229, 9, 26, 0.4);
 
     box-shadow:
-        0 20px 40px rgba(0,0,0,0.4);
+        0 25px 50px rgba(0, 0, 0, 0.55);
+}
+
+
+/* RED TOP LINE */
+
+.movie-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 2px;
+
+    background: #e5091a;
+
+    z-index: 5;
+
+    transition: width 0.3s ease;
+}
+
+.movie-card:hover::before {
+    width: 100%;
 }
 
 
 /* POSTER */
 
 .movie-poster {
-
-    height: 280px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #1c1c1c,
-            #080808
-        );
+    height: 245px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    color: #444;
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(229, 9, 26, 0.1),
+            transparent 35%
+        ),
 
-    font-size: 40px;
+        linear-gradient(
+            145deg,
+            #1c1c1c,
+            #0d0d0d
+        );
+
+    color: #333333;
+
+    font-size: 50px;
 }
 
 
 /* INFO */
 
 .movie-info {
-
-    padding: 18px;
+    padding: 17px;
 }
 
 
-.movie-title {
+/* TITLE */
 
-    font-size: 17px;
+.movie-title {
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
 
     margin-bottom: 8px;
 
@@ -437,239 +1027,141 @@ nav a.active {
 }
 
 
+/* DESCRIPTION */
+
 .movie-description {
-
-    color: #777;
-
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    height: 36px;
+    height: 38px;
 
     overflow: hidden;
+
+    color: #777777;
+
+    font-size: 11px;
+
+    line-height: 1.6;
 
     margin-bottom: 15px;
 }
 
 
-/* CARD BUTTON */
+/* WATCHLIST */
 
 .watchlist-button {
-
     width: 100%;
 
     padding: 10px;
 
-    border: 1px solid #333;
+    border:
+        1px solid #2d2d2d;
 
     border-radius: 6px;
 
-    background: transparent;
+    background: #171717;
 
-    color: #aaa;
+    color: #bcbcbc;
 
-    cursor: pointer;
+    font-size: 10px;
 
-    transition: 0.25s;
+    font-weight: 800;
+
+    transition: 0.25s ease;
 }
 
 .watchlist-button:hover {
+    background: #e5091a;
 
-    background: white;
+    border-color: #e5091a;
 
-    color: black;
-
-    border-color: white;
+    color: #ffffff;
 }
 
 
-/* =====================================================
+/* =========================
    LOADING
-===================================================== */
+   ========================= */
 
 .loading {
-
     grid-column: 1 / -1;
 
-    text-align: center;
-
-    color: #666;
-
-    padding: 60px;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer {
-
-    padding: 40px 6%;
-
-    border-top: 1px solid #1a1a1a;
+    min-height: 250px;
 
     display: flex;
 
-    justify-content: space-between;
+    flex-direction: column;
 
-    color: #555;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    color: #555555;
 
     font-size: 12px;
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+/* SPINNER */
 
-@media (max-width: 800px) {
+.loading-spinner {
+    width: 30px;
+    height: 30px;
 
-    .navbar {
+    border:
+        2px solid #222222;
 
-        padding: 0 20px;
+    border-top-color:
+        #e5091a;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+
+    to {
+        transform: rotate(360deg);
     }
 
-    nav {
-
-        gap: 15px;
-    }
-
-    nav a {
-
-        font-size: 12px;
-    }
-
-    .hero {
-
-        min-height: 500px;
-
-        padding: 60px 25px;
-    }
-
-    .hero h1 {
-
-        letter-spacing: -2px;
-    }
-
-    .section-header {
-
-        align-items: stretch;
-
-        flex-direction: column;
-    }
-
-    .search-container input {
-
-        width: 100%;
-    }
-
-    .movies-section {
-
-        padding: 60px 20px;
-    }
-
-    footer {
-
-        flex-direction: column;
-
-        gap: 10px;
-    }
 }
 
 
-@media (max-width: 500px) {
-
-    .navbar {
-
-        height: auto;
-
-        padding: 20px;
-
-        gap: 15px;
-
-        flex-wrap: wrap;
-    }
-
-    nav {
-
-        order: 3;
-
-        width: 100%;
-
-        justify-content: center;
-    }
-
-    .hero {
-
-        min-height: 480px;
-    }
-
-    .movies-grid {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        gap: 12px;
-    }
-
-    .movie-poster {
-
-        height: 220px;
-    }
-
-    .movie-info {
-
-        padding: 12px;
-    }
-
-}
-/* =====================================================
-   WATCHLIST PAGE
-===================================================== */
+/* =========================
+   WATCHLIST
+   ========================= */
 
 .watchlist-page {
+    min-height: 100vh;
 
-    min-height:
-        calc(100vh - 75px);
+    padding:
+        130px 6% 100px;
 
-    padding: 80px 6%;
-
-    background: #080808;
+    background: #070707;
 }
-
 
 .watchlist-header {
-
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 
-
 .watchlist-header h1 {
-
-    font-size: 52px;
+    font-size: 48px;
 
     letter-spacing: -2px;
 
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
-
 
 .watchlist-description {
+    color: #666666;
 
-    color: #777;
-
-    font-size: 14px;
+    font-size: 13px;
 }
 
 
-/* =====================================================
-   WATCHLIST ACTIONS
-===================================================== */
+/* ACTIONS */
 
 .watchlist-actions {
-
     display: flex;
 
     gap: 8px;
@@ -677,66 +1169,55 @@ footer {
     margin-top: 15px;
 }
 
-
 .watch-button,
 .remove-button {
-
     flex: 1;
 
     padding: 9px 5px;
 
     border-radius: 6px;
 
-    font-size: 11px;
+    font-size: 10px;
 
-    font-weight: 700;
+    font-weight: 800;
 
-    cursor: pointer;
-
-    transition: 0.25s;
+    transition: 0.25s ease;
 }
-
 
 .watch-button {
+    border: 1px solid #ffffff;
 
-    background: white;
+    background: #ffffff;
 
-    color: black;
-
-    border: 1px solid white;
+    color: #000000;
 }
-
 
 .watch-button:hover {
+    background: #e5091a;
 
-    background: #ddd;
+    border-color: #e5091a;
+
+    color: #ffffff;
 }
 
-
 .remove-button {
+    border: 1px solid #2b2b2b;
 
     background: transparent;
 
-    color: #888;
-
-    border: 1px solid #333;
+    color: #777777;
 }
-
 
 .remove-button:hover {
+    border-color: #e5091a;
 
-    color: white;
-
-    border-color: #666;
+    color: #ffffff;
 }
 
 
-/* =====================================================
-   EMPTY WATCHLIST
-===================================================== */
+/* EMPTY */
 
 .watchlist-message {
-
     grid-column: 1 / -1;
 
     text-align: center;
@@ -744,84 +1225,358 @@ footer {
     padding: 100px 20px;
 }
 
-
 .empty-icon {
+    font-size: 50px;
 
-    font-size: 55px;
+    margin-bottom: 20px;
 
-    margin-bottom: 25px;
-
-    opacity: 0.7;
+    opacity: 0.5;
 }
-
 
 .watchlist-message h2 {
+    font-size: 26px;
 
-    font-size: 28px;
-
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
-
 .watchlist-message p {
+    color: #666666;
 
-    color: #666;
-
-    font-size: 14px;
+    font-size: 13px;
 
     margin-bottom: 25px;
 }
 
-
 .browse-button {
-
-    padding: 13px 22px;
-
-    background: white;
-
-    color: black;
+    padding: 12px 20px;
 
     border: none;
 
     border-radius: 6px;
 
-    font-weight: 700;
+    background: #e5091a;
 
-    cursor: pointer;
+    color: #ffffff;
 
-    transition: 0.25s;
+    font-size: 11px;
+
+    font-weight: 800;
 }
-
 
 .browse-button:hover {
-
-    background: #ddd;
-
-    transform: translateY(-2px);
+    background: #f20b1d;
 }
 
 
-/* =====================================================
-   WATCHLIST RESPONSIVE
-===================================================== */
+/* =========================
+   FOOTER
+   ========================= */
 
-@media (max-width: 600px) {
+footer {
+    padding: 45px 6% 30px;
 
-    .watchlist-page {
+    border-top:
+        1px solid #171717;
 
-        padding: 60px 20px;
+    background: #050505;
+}
+
+.footer-content {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.footer-brand p {
+    margin-top: 12px;
+
+    color: #555555;
+
+    font-size: 11px;
+}
+
+.footer-right {
+    text-align: right;
+
+    color: #444444;
+
+    font-size: 11px;
+}
+
+.footer-right .copyright {
+    margin-top: 7px;
+
+    color: #333333;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1100px) {
+
+    .hero-visual {
+        right: -50px;
+
+        transform:
+            translateY(-46%)
+            scale(0.85);
+    }
+
+    .hero-content {
+        width: 58%;
+    }
+
+    .search-box {
+        width: 180px;
+    }
+
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        padding: 0 25px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .search-box {
+        width: 150px;
+    }
+
+    .hero {
+        min-height: 720px;
+
+        padding-left: 6%;
+    }
+
+    .hero-content {
+        width: 65%;
+    }
+
+    .hero-visual {
+        opacity: 0.4;
+
+        right: -120px;
+    }
+
+    .movies-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 650px) {
+
+    .navbar {
+        height: 65px;
+
+        padding: 0 16px;
+    }
+
+    .logo-text {
+        font-size: 17px;
+    }
+
+    .logo-mark {
+        width: 27px;
+        height: 27px;
+
+        font-size: 14px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .nav-links a {
+        font-size: 10px;
+    }
+
+    .nav-actions {
+        gap: 7px;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .logout-button {
+        padding: 8px 10px;
+
+        font-size: 9px;
     }
 
 
-    .watchlist-header h1 {
+    /* HERO */
+
+    .hero {
+        min-height: 700px;
+
+        padding:
+            120px 25px 70px;
+
+        align-items: flex-start;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 55px;
+
+        letter-spacing: -3px;
+    }
+
+    .hero h1 strong::after {
+        width: 35px;
+        height: 5px;
+
+        margin-left: 7px;
+    }
+
+    .hero-content > p {
+        font-size: 13px;
+
+        max-width: 400px;
+    }
+
+    .hero-actions {
+        margin-bottom: 35px;
+    }
+
+    .hero-stats {
+        gap: 15px;
+    }
+
+    .hero-visual {
+        opacity: 0.2;
+
+        right: -180px;
+        top: 58%;
+    }
+
+
+    /* MOVIES */
+
+    .movies-section {
+        padding:
+            70px 20px 90px;
+    }
+
+    .section-top h2 {
+        font-size: 27px;
+    }
+
+    .section-number {
+        display: none;
+    }
+
+    .movies-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+    .movie-card {
+        min-height: 330px;
+    }
+
+    .movie-poster {
+        height: 190px;
 
         font-size: 40px;
     }
 
+    .movie-info {
+        padding: 12px;
+    }
 
-    .watchlist-actions {
+    .movie-title {
+        font-size: 13px;
+    }
 
+    .movie-description {
+        font-size: 10px;
+    }
+
+    .watchlist-button {
+        padding: 8px 4px;
+
+        font-size: 9px;
+    }
+
+
+    /* FOOTER */
+
+    .footer-content {
         flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 25px;
+    }
+
+    .footer-right {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 400px) {
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links a {
+        font-size: 9px;
+    }
+
+    .hero h1 {
+        font-size: 47px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .primary-button,
+    .secondary-button {
+        width: 100%;
+    }
+
+    .movies-grid {
+        gap: 8px;
     }
 
 }

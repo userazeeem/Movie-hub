@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Movie-Hub</title>
+    <title>Movie-Hub | Discover Movies</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,90 +16,205 @@
 
     <header class="navbar">
 
-        <div class="logo">
-            MOVIE<span>-HUB</span>
-        </div>
+        <a href="index.html" class="logo">
+            <span class="logo-mark">M</span>
+            <span class="logo-text">MOVIE<span>-HUB</span></span>
+        </a>
 
-        <nav>
+        <nav class="nav-links">
             <a href="index.html" class="active">Home</a>
             <a href="watchlist.html">Watchlist</a>
             <a href="profile.html">Profile</a>
         </nav>
 
-        <button id="logoutButton" class="logout-button">
-            Logout
-        </button>
+        <div class="nav-actions">
+
+            <div class="search-box">
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search movies..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <button id="logoutButton" class="logout-button">
+                Logout
+            </button>
+
+        </div>
 
     </header>
 
 
     <!-- ================= HERO ================= -->
 
-    <section class="hero">
+    <main>
 
-        <div class="hero-content">
+        <section class="hero">
 
-            <p class="hero-label">
-                WELCOME TO MOVIE-HUB
-            </p>
+            <div class="hero-glow"></div>
 
-            <h1>
-                Your next favorite<br>
-                movie is waiting.
-            </h1>
+            <div class="hero-content">
 
-            <p class="hero-description">
-                Discover movies, build your watchlist and explore
-                recommendations from other movie lovers.
-            </p>
+                <div class="hero-badge">
+                    <span></span>
+                    MOVIE-HUB
+                </div>
 
-            <button class="hero-button" onclick="scrollToMovies()">
-                EXPLORE MOVIES
-            </button>
+                <h1>
+                    Stories worth
+                    <strong>watching.</strong>
+                </h1>
 
-        </div>
-
-    </section>
-
-
-    <!-- ================= MOVIES ================= -->
-
-    <main class="movies-section" id="moviesSection">
-
-        <div class="section-header">
-
-            <div>
-                <p class="section-label">
-                    DISCOVER
+                <p>
+                    Explore movies, discover hidden gems,
+                    build your watchlist and share what you love
+                    with other movie fans.
                 </p>
 
-                <h2>
-                    Movies
-                </h2>
+                <div class="hero-actions">
+
+                    <button
+                        class="primary-button"
+                        onclick="scrollToMovies()"
+                    >
+                        Explore Movies
+                        <span>→</span>
+                    </button>
+
+                    <a
+                        href="watchlist.html"
+                        class="secondary-button"
+                    >
+                        My Watchlist
+                    </a>
+
+                </div>
+
+                <div class="hero-stats">
+
+                    <div class="stat">
+                        <strong>∞</strong>
+                        <span>Stories</span>
+                    </div>
+
+                    <div class="stat-line"></div>
+
+                    <div class="stat">
+                        <strong>24/7</strong>
+                        <span>Discovery</span>
+                    </div>
+
+                    <div class="stat-line"></div>
+
+                    <div class="stat">
+                        <strong>1</strong>
+                        <span>Movie-Hub</span>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="search-container">
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search movies..."
-                >
+            <!-- DECORATIVE CINEMATIC ELEMENT -->
+
+            <div class="hero-visual">
+
+                <div class="poster poster-back">
+                    <div class="poster-shape"></div>
+                </div>
+
+                <div class="poster poster-middle">
+                    <div class="poster-shape"></div>
+                </div>
+
+                <div class="poster poster-main">
+
+                    <div class="poster-gradient"></div>
+
+                    <div class="poster-content">
+
+                        <span>FEATURED</span>
+
+                        <h2>
+                            MOVIE
+                            <br>
+                            NIGHT
+                        </h2>
+
+                        <div class="poster-line"></div>
+
+                        <p>
+                            Every story
+                            starts somewhere.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="visual-glow"></div>
 
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- Movie cards will be inserted here -->
+        <!-- ================= MOVIES ================= -->
 
-        <div id="moviesContainer" class="movies-grid">
+        <section
+            id="moviesSection"
+            class="movies-section"
+        >
 
-            <p class="loading">
-                Loading movies...
-            </p>
+            <div class="section-top">
 
-        </div>
+                <div>
+
+                    <div class="section-label">
+                        <span></span>
+                        DISCOVER
+                    </div>
+
+                    <h2>
+                        Explore Movies
+                    </h2>
+
+                    <p>
+                        Find something worth watching tonight.
+                    </p>
+
+                </div>
+
+                <div class="section-number">
+                    MOVIES
+                </div>
+
+            </div>
+
+
+            <div
+                id="moviesContainer"
+                class="movies-grid"
+            >
+
+                <div class="loading">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>
+                        Loading movies...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
@@ -108,13 +223,36 @@
 
     <footer>
 
-        <p>
-            © 2026 Movie-Hub
-        </p>
+        <div class="footer-content">
 
-        <p>
-            Built with HTML, CSS, JavaScript, Node.js & MySQL
-        </p>
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+                    <span class="logo-mark">M</span>
+                    <span class="logo-text">
+                        MOVIE<span>-HUB</span>
+                    </span>
+                </a>
+
+                <p>
+                    Discover. Save. Recommend.
+                </p>
+
+            </div>
+
+            <div class="footer-right">
+
+                <p>
+                    Your movies. Your collection.
+                </p>
+
+                <p class="copyright">
+                    © 2026 Movie-Hub
+                </p>
+
+            </div>
+
+        </div>
 
     </footer>
 
