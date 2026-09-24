@@ -385,3 +385,28 @@ logoutButton.addEventListener(
 
     }
 );
+const navProfileLetter =
+    document.getElementById("navProfileLetter");
+
+if (navProfileLetter) {
+
+    try {
+
+        const user =
+            JSON.parse(
+                localStorage.getItem("user")
+            );
+
+        const username =
+            user?.username || "U";
+
+        navProfileLetter.textContent =
+            username.charAt(0).toUpperCase();
+
+    } catch (error) {
+
+        navProfileLetter.textContent = "U";
+
+    }
+
+}

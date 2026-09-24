@@ -1567,3 +1567,51 @@ footer {
 #clearSelectedMovie:hover {
     color: #e5091a;
 }
+/* =====================================================
+   PROFILE NAV ICON
+===================================================== */
+
+.nav-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.profile-nav {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #111111;
+
+    border: 1px solid #292929;
+
+    border-radius: 50%;
+
+    color: #e5091a;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    transition: 0.25s ease;
+}
+
+
+.profile-nav:hover {
+    background: #e5091a;
+
+    border-color: #e5091a;
+
+    color: white;
+
+    transform: translateY(-1px);
+}
