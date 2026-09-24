@@ -1,0 +1,1452 @@
+ /* =====================================================
+    MOVIE-HUB
+    CINEMATIC RECOMMENDATIONS
+    OBSIDIAN + CRIMSON
+ ===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #070707;
+
+    color: white;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    height: 74px;
+
+    padding: 0 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 1000;
+
+    background:
+        rgba(7, 7, 7, 0.82);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.8px;
+}
+
+
+.logo-mark {
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #e5091a;
+
+    color: white;
+
+    font-size: 17px;
+
+    box-shadow:
+        0 0 22px rgba(229, 9, 26, 0.25);
+}
+
+
+.logo-text span {
+    color: #e5091a;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+
+.nav-links a {
+    position: relative;
+
+    color: #777;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+
+.nav-links a:hover {
+    color: white;
+}
+
+
+.nav-links a.active {
+    color: white;
+}
+
+
+.nav-links a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -10px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #e5091a;
+
+    transform:
+        translateX(-50%);
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.8);
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-button {
+    padding: 9px 15px;
+
+    background: transparent;
+
+    border:
+        1px solid #2b2b2b;
+
+    border-radius: 7px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.logout-button:hover {
+    background: #e5091a;
+
+    border-color: #e5091a;
+
+    color: white;
+}
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.recommendations-page {
+    min-height: 100vh;
+
+    padding:
+        125px 7% 90px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            ellipse at 85% 5%,
+            rgba(229, 9, 26, 0.10),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            ellipse at 10% 45%,
+            rgba(255,255,255,0.025),
+            transparent 30%
+        ),
+
+        #070707;
+}
+
+
+/* =====================================================
+   CINEMATIC BACKGROUND
+===================================================== */
+
+.recommendations-page::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    right: -300px;
+    top: 250px;
+
+    border:
+        1px solid rgba(229, 9, 26, 0.10);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 120px
+        rgba(229, 9, 26, 0.04);
+
+    pointer-events: none;
+}
+
+
+.recommendations-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    left: -150px;
+    bottom: 100px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(229, 9, 26, 0.05);
+
+    filter: blur(90px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.recommendations-header {
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 55px;
+}
+
+
+.section-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+
+.section-label span {
+    width: 20px;
+    height: 2px;
+
+    display: block;
+
+    background: #e5091a;
+
+    box-shadow:
+        0 0 10px
+        rgba(229, 9, 26, 0.5);
+}
+
+
+.recommendations-header h1 {
+    font-size:
+        clamp(48px, 7vw, 82px);
+
+    line-height: 0.95;
+
+    letter-spacing: -4px;
+
+    margin-bottom: 18px;
+}
+
+
+.recommendations-header > p {
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-bottom: 28px;
+
+    max-width: 550px;
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 13px 20px;
+
+    background: #e5091a;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 10px 30px
+        rgba(229, 9, 26, 0.15);
+}
+
+
+.primary-button:hover {
+    background: #f20b1d;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 14px 35px
+        rgba(229, 9, 26, 0.25);
+}
+
+
+.secondary-button {
+    padding: 12px 20px;
+
+    background:
+        rgba(255,255,255,0.025);
+
+    color: #aaa;
+
+    border:
+        1px solid #2c2c2c;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.secondary-button:hover {
+    color: white;
+
+    background: #141414;
+
+    border-color: #555;
+}
+
+
+/* =====================================================
+   FORM SECTION
+===================================================== */
+
+.recommendation-form-section {
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 800px;
+
+    margin-bottom: 75px;
+
+    padding: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22,22,22,0.96),
+            rgba(10,10,10,0.96)
+        );
+
+    border:
+        1px solid #282828;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,0.45);
+}
+
+
+.recommendation-form-section::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 30px;
+    right: 30px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #e5091a,
+            transparent
+        );
+}
+
+
+/* =====================================================
+   HIDDEN FORM
+===================================================== */
+
+.hidden {
+    display: none;
+}
+
+
+/* =====================================================
+   FORM HEADER
+===================================================== */
+
+.form-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+
+.form-header h2 {
+    font-size: 27px;
+
+    letter-spacing: -1px;
+}
+
+
+.close-button {
+    width: 34px;
+    height: 34px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 23px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.close-button:hover {
+    color: white;
+
+    border-color:
+        rgba(229, 9, 26, 0.5);
+
+    background:
+        rgba(229, 9, 26, 0.08);
+}
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+
+.form-group label {
+    display: block;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: #0a0a0a;
+
+    color: white;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 13px;
+
+    transition: 0.25s ease;
+}
+
+
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color:
+        rgba(229, 9, 26, 0.65);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(229, 9, 26, 0.07);
+}
+
+
+.form-group select {
+    cursor: pointer;
+}
+
+
+.form-group textarea {
+    resize: vertical;
+
+    min-height: 120px;
+
+    line-height: 1.6;
+}
+
+
+.form-group textarea::placeholder {
+    color: #4d4d4d;
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.form-message {
+    margin-top: 15px;
+
+    font-size: 12px;
+
+    min-height: 18px;
+}
+
+
+/* =====================================================
+   RECOMMENDATIONS SECTION
+===================================================== */
+
+.recommendations-section {
+    position: relative;
+
+    z-index: 3;
+}
+
+
+.section-top {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+}
+
+
+.section-top h2 {
+    font-size: 35px;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 8px;
+}
+
+
+.section-top p {
+    color: #666;
+
+    font-size: 12px;
+}
+
+
+.section-number {
+    color: #333;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+/* =====================================================
+   RECOMMENDATIONS GRID
+===================================================== */
+
+.recommendations-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(290px, 1fr));
+
+    gap: 22px;
+}
+
+
+/* =====================================================
+   RECOMMENDATION CARD
+===================================================== */
+
+.recommendation-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0c0c0c
+        );
+
+    border:
+        1px solid #252525;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.recommendation-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #e5091a,
+            transparent
+        );
+
+    opacity: 0;
+
+    transition: 0.3s ease;
+}
+
+
+.recommendation-card:hover {
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(229,9,26,0.4);
+
+    box-shadow:
+        0 20px 55px
+        rgba(0,0,0,0.5);
+}
+
+
+.recommendation-card:hover::before {
+    opacity: 1;
+}
+
+
+/* =====================================================
+   CARD MOVIE AREA
+===================================================== */
+
+.recommendation-movie {
+    min-height: 150px;
+
+    padding: 22px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(229,9,26,0.15),
+            transparent 45%
+        ),
+
+        linear-gradient(
+            145deg,
+            #1b1b1b,
+            #090909
+        );
+
+    border-bottom:
+        1px solid #222;
+}
+
+
+.recommendation-movie::before {
+    content: "";
+
+    position: absolute;
+
+    width: 160px;
+    height: 230px;
+
+    right: 25px;
+    top: -60px;
+
+    border:
+        1px solid
+        rgba(229,9,26,0.13);
+
+    transform:
+        rotate(25deg);
+}
+
+
+.recommendation-movie::after {
+    content: "MOVIE";
+
+    position: absolute;
+
+    right: 15px;
+    bottom: 12px;
+
+    color:
+        rgba(255,255,255,0.10);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+
+.recommendation-movie h3 {
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 80%;
+
+    font-size: 22px;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.7px;
+}
+
+
+/* =====================================================
+   CARD CONTENT
+===================================================== */
+
+.recommendation-content {
+    padding: 20px;
+}
+
+
+.recommended-by {
+    color: #666;
+
+    font-size: 10px;
+
+    margin-bottom: 14px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+
+.recommended-by strong {
+    color: #aaa;
+}
+
+
+.recommendation-text {
+    color: #999;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+
+    min-height: 66px;
+}
+
+
+/* =====================================================
+   CARD ACTIONS
+===================================================== */
+
+.recommendation-actions {
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+
+.view-movie-button {
+    flex: 1;
+
+    padding: 10px 12px;
+
+    background: #e5091a;
+
+    border: none;
+
+    border-radius: 6px;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.view-movie-button:hover {
+    background: #f20b1d;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.comment-button {
+    padding: 10px 13px;
+
+    background: transparent;
+
+    border:
+        1px solid #2d2d2d;
+
+    border-radius: 6px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.comment-button:hover {
+    color: white;
+
+    border-color: #555;
+
+    background: #141414;
+}
+
+
+.delete-recommendation-button {
+    padding: 10px 13px;
+
+    background: transparent;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 6px;
+
+    color: #666;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.delete-recommendation-button:hover {
+    color: #ff4d5a;
+
+    border-color:
+        rgba(229,9,26,0.45);
+
+    background:
+        rgba(229,9,26,0.06);
+}
+
+
+/* =====================================================
+   COMMENTS AREA
+===================================================== */
+
+.comments-section {
+    margin-top: 18px;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid #222;
+}
+
+
+.comments-section h4 {
+    font-size: 11px;
+
+    color: #aaa;
+
+    margin-bottom: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+.comment-item {
+    padding: 10px 0;
+
+    border-bottom:
+        1px solid #1d1d1d;
+}
+
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+
+.comment-user {
+    color: #e5091a;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+
+.comment-text {
+    color: #777;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.recommendations-message {
+    grid-column:
+        1 / -1;
+
+    min-height: 350px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 40px;
+}
+
+
+.recommendations-message .empty-icon {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(229,9,26,0.12),
+            transparent 65%
+        );
+
+    font-size: 28px;
+}
+
+
+.recommendations-message h2 {
+    font-size: 25px;
+
+    margin-bottom: 9px;
+}
+
+
+.recommendations-message p {
+    color: #666;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading {
+    grid-column:
+        1 / -1;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    color: #555;
+
+    font-size: 12px;
+}
+
+
+.loading-spinner {
+    width: 30px;
+    height: 30px;
+
+    border:
+        2px solid #222;
+
+    border-top-color:
+        #e5091a;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+}
+
+
+@keyframes spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    border-top:
+        1px solid #1a1a1a;
+
+    background: #050505;
+
+    padding:
+        28px 7%;
+
+    color: #555;
+
+    font-size: 11px;
+}
+
+
+.footer-content {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.footer-brand p {
+    margin-top: 8px;
+}
+
+
+.footer-right {
+    text-align: right;
+}
+
+
+.footer-right p {
+    margin-bottom: 5px;
+}
+
+
+.copyright {
+    color: #333;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .nav-links {
+        gap: 18px;
+    }
+
+
+    .nav-links a {
+        font-size: 11px;
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .recommendations-page {
+        padding:
+            120px 5% 70px;
+    }
+
+
+    .section-top {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .section-number {
+        display: none;
+    }
+
+
+    .recommendations-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .navbar {
+        height: auto;
+
+        min-height: 65px;
+
+        padding:
+            12px 18px;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+
+    .logo {
+        font-size: 17px;
+    }
+
+
+    .logo-mark {
+        width: 27px;
+        height: 27px;
+
+        font-size: 14px;
+    }
+
+
+    .logout-button {
+        padding:
+            8px 10px;
+
+        font-size: 9px;
+    }
+
+
+    .nav-links {
+        order: 3;
+
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 17px;
+
+        padding-bottom: 4px;
+    }
+
+
+    .nav-links a {
+        font-size: 10px;
+    }
+
+
+    .recommendations-page {
+        padding:
+            140px 18px 55px;
+    }
+
+
+    .recommendations-header h1 {
+        font-size: 48px;
+
+        letter-spacing: -3px;
+    }
+
+
+    .recommendations-header > p {
+        font-size: 12px;
+    }
+
+
+    .recommendation-form-section {
+        padding: 22px;
+
+        margin-bottom: 55px;
+    }
+
+
+    .form-header h2 {
+        font-size: 23px;
+    }
+
+
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .section-top h2 {
+        font-size: 28px;
+    }
+
+
+    .recommendation-actions {
+        flex-direction: column;
+    }
+
+
+    .view-movie-button,
+    .comment-button,
+    .delete-recommendation-button {
+        width: 100%;
+    }
+
+
+    .footer-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .footer-right {
+        text-align: left;
+    }
+
+}

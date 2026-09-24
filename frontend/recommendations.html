@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recommendations | Movie-Hub</title>
+
+    <link
+        rel="stylesheet"
+        href="css/recommendations.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         NAVBAR
+    ================================================== -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-mark">M</span>
+
+            <span class="logo-text">
+                MOVIE<span>-HUB</span>
+            </span>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="watchlist.html">
+                Watchlist
+            </a>
+
+            <a
+                href="recommendations.html"
+                class="active"
+            >
+                Recommendations
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+        </nav>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="recommendations-page">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <section class="recommendations-header">
+
+            <div class="section-label">
+
+                <span></span>
+
+                MOVIE COMMUNITY
+
+            </div>
+
+
+            <h1>
+                Recommendations
+            </h1>
+
+
+            <p>
+                Discover movies recommended by
+                other Movie-Hub users.
+            </p>
+
+
+            <button
+                id="showAddFormButton"
+                class="primary-button"
+            >
+                + Recommend a Movie
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ADD RECOMMENDATION FORM
+        ================================================== -->
+
+        <section
+            id="recommendationFormSection"
+            class="recommendation-form-section hidden"
+        >
+
+            <div class="form-header">
+
+                <div>
+
+                    <div class="section-label">
+
+                        <span></span>
+
+                        SHARE A MOVIE
+
+                    </div>
+
+                    <h2>
+                        Recommend something
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="closeFormButton"
+                    class="close-button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="recommendationForm">
+
+
+                <div class="form-group">
+
+                    <label for="movieSelect">
+                        Select Movie
+                    </label>
+
+                    <select
+                        id="movieSelect"
+                        required
+                    >
+
+                        <option value="">
+                            Choose a movie...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="recommendationText">
+                        Why do you recommend it?
+                    </label>
+
+                    <textarea
+                        id="recommendationText"
+                        rows="5"
+                        maxlength="500"
+                        placeholder="Tell other movie fans why they should watch this..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        id="submitRecommendationButton"
+                        class="primary-button"
+                    >
+                        POST RECOMMENDATION
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelRecommendationButton"
+                        class="secondary-button"
+                    >
+                        CANCEL
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="formMessage"
+                    class="form-message"
+                ></p>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             RECOMMENDATIONS SECTION
+        ================================================== -->
+
+        <section class="recommendations-section">
+
+
+            <div class="section-top">
+
+                <div>
+
+                    <div class="section-label">
+
+                        <span></span>
+
+                        DISCOVER
+
+                    </div>
+
+
+                    <h2>
+                        What People Are Watching
+                    </h2>
+
+
+                    <p>
+                        Movie recommendations from the community.
+                    </p>
+
+                </div>
+
+
+                <div class="section-number">
+                    RECOMMENDATIONS
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RECOMMENDATIONS CONTAINER
+            ================================================== -->
+
+            <div
+                id="recommendationsContainer"
+                class="recommendations-grid"
+            >
+
+                <div class="loading">
+
+                    <div class="loading-spinner"></div>
+
+                    <p>
+                        Loading recommendations...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+
+            <div class="footer-brand">
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+
+                    <span class="logo-mark">
+                        M
+                    </span>
+
+                    <span class="logo-text">
+                        MOVIE<span>-HUB</span>
+                    </span>
+
+                </a>
+
+
+                <p>
+                    Discover. Save. Recommend.
+                </p>
+
+            </div>
+
+
+            <div class="footer-right">
+
+                <p>
+                    Share what you love.
+                </p>
+
+                <p class="copyright">
+                    © 2026 Movie-Hub
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="js/recommendations.js"></script>
+
+
+</body>
+
+</html>

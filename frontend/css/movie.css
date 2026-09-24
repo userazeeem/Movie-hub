@@ -1,4 +1,10 @@
 /* =====================================================
+   MOVIE-HUB
+   CINEMATIC MOVIE DETAILS THEME
+===================================================== */
+
+
+/* =====================================================
    RESET
 ===================================================== */
 
@@ -8,24 +14,23 @@
     box-sizing: border-box;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
-
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    background: #050505;
+    background: #070707;
 
-    color: white;
+    color: #ffffff;
 
     min-height: 100vh;
+
+    overflow-x: hidden;
 }
 
 
@@ -34,10 +39,9 @@ body {
 ===================================================== */
 
 .navbar {
+    height: 74px;
 
-    height: 75px;
-
-    padding: 0 6%;
+    padding: 0 5%;
 
     display: flex;
 
@@ -45,86 +49,170 @@ body {
 
     justify-content: space-between;
 
-    position: sticky;
+    position: fixed;
 
     top: 0;
+    left: 0;
 
-    z-index: 100;
+    width: 100%;
+
+    z-index: 1000;
 
     background:
-        rgba(5, 5, 5, 0.92);
+        rgba(7, 7, 7, 0.78);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(18px);
 
-    border-bottom: 1px solid #1b1b1b;
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
 }
 
 
+/* =====================================================
+   LOGO
+===================================================== */
+
 .logo {
+    display: flex;
 
-    font-size: 23px;
+    align-items: center;
 
-    font-weight: 800;
+    gap: 9px;
 
-    letter-spacing: 2px;
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.8px;
+}
+
+
+.logo::before {
+    content: "M";
+
+    width: 31px;
+    height: 31px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #d90416;
+
+    color: white;
+
+    font-size: 17px;
+
+    box-shadow:
+        0 0 22px rgba(217, 4, 22, 0.25);
 }
 
 
 .logo span {
-
-    color: #777;
+    color: #e5091a;
 }
 
 
-nav {
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
+nav {
     display: flex;
 
-    gap: 35px;
+    align-items: center;
+
+    gap: 32px;
 }
 
 
 nav a {
+    position: relative;
 
     color: #777;
 
     text-decoration: none;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    transition: 0.25s;
+    font-weight: 600;
+
+    transition: 0.25s ease;
 }
 
 
 nav a:hover {
-
     color: white;
 }
 
 
-.logout-button {
+nav a.active {
+    color: white;
+}
 
-    padding: 9px 18px;
+
+nav a.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: -9px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #e5091a;
+
+    transform:
+        translateX(-50%);
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.8);
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.logout-button {
+    padding: 9px 15px;
 
     background: transparent;
 
-    border: 1px solid #333;
+    border: 1px solid #2b2b2b;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     color: #aaa;
 
+    font-size: 11px;
+
+    font-weight: 700;
+
     cursor: pointer;
 
-    transition: 0.25s;
+    transition: 0.25s ease;
 }
 
 
 .logout-button:hover {
+    background: #e5091a;
+
+    border-color: #e5091a;
 
     color: white;
-
-    border-color: #777;
 }
 
 
@@ -135,13 +223,14 @@ nav a:hover {
 .movie-container {
 
     min-height:
-        calc(100vh - 75px);
+        100vh;
 
     display: flex;
 
     align-items: center;
 
-    padding: 80px 8%;
+    padding:
+        120px 8% 100px;
 
     position: relative;
 
@@ -150,17 +239,55 @@ nav a:hover {
     background:
 
         radial-gradient(
-            circle at 75% 30%,
-            rgba(255,255,255,0.09),
-            transparent 30%
+            ellipse at 78% 45%,
+            rgba(229, 9, 26, 0.12),
+            transparent 35%
         ),
 
-        #050505;
+        radial-gradient(
+            ellipse at 15% 50%,
+            rgba(255,255,255,0.025),
+            transparent 35%
+        ),
+
+        #070707;
 }
 
 
 /* =====================================================
-   BACKGROUND CIRCLE
+   CINEMATIC RED GLOW
+===================================================== */
+
+.movie-container::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: 5%;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(229, 9, 26, 0.08);
+
+    filter:
+        blur(100px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   LARGE CINEMATIC CIRCLE
 ===================================================== */
 
 .movie-container::after {
@@ -169,20 +296,25 @@ nav a:hover {
 
     position: absolute;
 
-    width: 700px;
+    width: 650px;
 
-    height: 700px;
+    height: 650px;
 
-    border: 1px solid #181818;
-
-    border-radius: 50%;
-
-    right: -250px;
+    right: -280px;
 
     top: 50%;
 
     transform:
         translateY(-50%);
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(229, 9, 26, 0.12);
+
+    box-shadow:
+        inset 0 0 100px
+        rgba(229, 9, 26, 0.04);
 
     pointer-events: none;
 }
@@ -198,46 +330,87 @@ nav a:hover {
 
     position: relative;
 
-    z-index: 2;
+    z-index: 5;
 }
 
+
+/* =====================================================
+   MOVIE LABEL
+===================================================== */
 
 .movie-label {
 
-    color: #666;
+    display: flex;
 
-    font-size: 12px;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #777;
+
+    font-size: 10px;
+
+    font-weight: 800;
 
     letter-spacing: 3px;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
+
+.movie-label::before {
+
+    content: "";
+
+    width: 20px;
+    height: 2px;
+
+    background: #e5091a;
+
+    box-shadow:
+        0 0 10px rgba(229, 9, 26, 0.5);
+}
+
+
+/* =====================================================
+   MOVIE TITLE
+===================================================== */
 
 .movie-title {
 
+    max-width: 900px;
+
     font-size:
-        clamp(48px, 8vw, 90px);
+        clamp(52px, 8vw, 100px);
 
-    line-height: 0.95;
+    line-height: 0.92;
 
-    letter-spacing: -3px;
+    letter-spacing: -5px;
 
-    margin-bottom: 25px;
+    font-weight: 800;
+
+    margin-bottom: 30px;
+
+    text-shadow:
+        0 10px 50px rgba(0,0,0,0.5);
 }
 
+
+/* =====================================================
+   MOVIE DESCRIPTION
+===================================================== */
 
 .movie-description {
 
     max-width: 650px;
 
-    color: #999;
+    color: #858585;
 
     line-height: 1.8;
 
-    font-size: 16px;
+    font-size: 15px;
 
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 
@@ -249,7 +422,7 @@ nav a:hover {
 
     display: flex;
 
-    gap: 15px;
+    gap: 10px;
 
     flex-wrap: wrap;
 
@@ -259,15 +432,35 @@ nav a:hover {
 
 .meta-item {
 
-    padding: 8px 14px;
+    padding: 8px 13px;
 
-    border: 1px solid #292929;
+    border:
+        1px solid #292929;
 
-    border-radius: 5px;
+    border-radius: 6px;
 
     color: #aaa;
 
-    font-size: 12px;
+    background:
+        rgba(255,255,255,0.025);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: 0.25s ease;
+}
+
+
+.meta-item:hover {
+
+    border-color:
+        rgba(229, 9, 26, 0.5);
+
+    color: white;
+
+    background:
+        rgba(229, 9, 26, 0.05);
 }
 
 
@@ -285,60 +478,95 @@ nav a:hover {
 }
 
 
+/* =====================================================
+   PRIMARY BUTTON
+===================================================== */
+
 .primary-button {
 
-    padding: 14px 24px;
+    display: inline-flex;
 
-    background: white;
+    align-items: center;
 
-    color: black;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 14px 23px;
+
+    background: #e5091a;
+
+    color: white;
 
     border: none;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    font-weight: 700;
+    font-size: 12px;
+
+    font-weight: 800;
 
     cursor: pointer;
 
-    transition: 0.25s;
+    box-shadow:
+        0 10px 30px
+        rgba(229, 9, 26, 0.18);
+
+    transition: 0.25s ease;
 }
 
 
 .primary-button:hover {
 
-    background: #ddd;
+    background: #f20b1d;
 
     transform:
         translateY(-2px);
+
+    box-shadow:
+        0 14px 35px
+        rgba(229, 9, 26, 0.28);
 }
 
 
+/* =====================================================
+   SECONDARY BUTTON
+===================================================== */
+
 .secondary-button {
 
-    padding: 14px 24px;
+    padding: 13px 22px;
 
-    background: transparent;
+    background:
+        rgba(255,255,255,0.025);
 
-    color: white;
+    color: #aaa;
 
-    border: 1px solid #333;
+    border:
+        1px solid #2d2d2d;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    font-weight: 600;
+    font-size: 12px;
+
+    font-weight: 700;
 
     cursor: pointer;
 
-    transition: 0.25s;
+    transition: 0.25s ease;
 }
 
 
 .secondary-button:hover {
 
-    border-color: #777;
+    background: #141414;
 
-    background: #111;
+    border-color: #555;
+
+    color: white;
+
+    transform:
+        translateY(-2px);
 }
 
 
@@ -350,11 +578,56 @@ nav a:hover {
 
     width: 100%;
 
-    text-align: center;
+    min-height: 300px;
 
-    color: #666;
+    display: flex;
 
-    font-size: 14px;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    color: #555;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   LOADING SPINNER
+===================================================== */
+
+.loading::before {
+
+    content: "";
+
+    width: 30px;
+
+    height: 30px;
+
+    border:
+        2px solid #222;
+
+    border-top-color:
+        #e5091a;
+
+    border-radius: 50%;
+
+    animation:
+        spin 0.8s linear infinite;
+}
+
+
+@keyframes spin {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+
 }
 
 
@@ -364,23 +637,51 @@ nav a:hover {
 
 .error-message {
 
+    width: 100%;
+
     text-align: center;
 
-    width: 100%;
+    position: relative;
+
+    z-index: 5;
 }
 
 
 .error-message h2 {
 
-    margin-bottom: 15px;
+    font-size: 32px;
+
+    margin-bottom: 12px;
 }
 
 
 .error-message p {
 
-    color: #777;
+    color: #666;
+
+    font-size: 13px;
 
     margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   RED ERROR ACCENT
+===================================================== */
+
+.error-message h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 30px;
+    height: 3px;
+
+    margin:
+        15px auto 0;
+
+    background: #e5091a;
 }
 
 
@@ -388,17 +689,138 @@ nav a:hover {
    RESPONSIVE
 ===================================================== */
 
+@media (max-width: 900px) {
+
+    .movie-container {
+
+        padding:
+            120px 6% 80px;
+    }
+
+
+    .movie-title {
+
+        font-size:
+            clamp(48px, 9vw, 80px);
+    }
+
+
+    .movie-container::after {
+
+        width: 500px;
+        height: 500px;
+
+        right: -300px;
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
 @media (max-width: 700px) {
 
     .navbar {
 
-        padding: 20px;
+        height: 65px;
+
+        padding:
+            0 20px;
+
+        flex-wrap: wrap;
+    }
+
+
+    nav {
+
+        gap: 18px;
+    }
+
+
+    nav a {
+
+        font-size: 11px;
+    }
+
+
+    .movie-container {
+
+        min-height:
+            100vh;
+
+        padding:
+            120px 25px 70px;
+
+        align-items:
+            flex-start;
+    }
+
+
+    .movie-title {
+
+        font-size:
+            clamp(45px, 13vw, 65px);
+
+        letter-spacing:
+            -3px;
+    }
+
+
+    .movie-description {
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    .movie-container::after {
+
+        width: 400px;
+
+        height: 400px;
+
+        right: -250px;
+
+        top: 70%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .navbar {
+
+        padding:
+            12px 15px;
 
         height: auto;
 
-        flex-wrap: wrap;
+        min-height: 65px;
 
-        gap: 15px;
+        gap: 10px;
+    }
+
+
+    .logo {
+
+        font-size: 17px;
+    }
+
+
+    .logo::before {
+
+        width: 27px;
+        height: 27px;
+
+        font-size: 14px;
     }
 
 
@@ -408,30 +830,105 @@ nav a:hover {
 
         width: 100%;
 
-        justify-content: center;
+        justify-content:
+            center;
 
-        gap: 20px;
+        padding-top: 8px;
+
+        padding-bottom: 5px;
+    }
+
+
+    nav a {
+
+        font-size: 10px;
+    }
+
+
+    .logout-button {
+
+        padding:
+            8px 10px;
+
+        font-size: 9px;
     }
 
 
     .movie-container {
 
-        padding: 60px 25px;
+        padding:
+            145px 20px 60px;
+    }
 
-        min-height:
-            calc(100vh - 120px);
+
+    .movie-label {
+
+        font-size: 9px;
+
+        letter-spacing: 2px;
     }
 
 
     .movie-title {
 
+        font-size: 48px;
+
         letter-spacing: -2px;
+
+        margin-bottom: 25px;
     }
 
 
     .movie-description {
 
-        font-size: 14px;
+        font-size: 13px;
+
+        margin-bottom: 25px;
+    }
+
+
+    .movie-meta {
+
+        gap: 7px;
+
+        margin-bottom: 28px;
+    }
+
+
+    .meta-item {
+
+        padding:
+            7px 10px;
+
+        font-size: 10px;
+    }
+
+
+    .movie-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .primary-button,
+    .secondary-button {
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .movie-container::before {
+
+        width: 300px;
+        height: 300px;
+
+        right: -100px;
+
+        top: 55%;
     }
 
 }
