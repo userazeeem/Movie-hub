@@ -824,12 +824,20 @@ function displayComments(recommendationId, comments) {
 
         commentElement.innerHTML = `
 
-            <div class="comment-user">
-                ${escapeHTML(username)}
+            <div class="comment-avatar">
+                ${escapeHTML(username.charAt(0).toUpperCase())}
             </div>
 
-            <div class="comment-text">
-                ${escapeHTML(commentBody)}
+            <div class="comment-body">
+
+                <div class="comment-user">
+                    ${escapeHTML(username)}
+                </div>
+
+                <div class="comment-text">
+                    ${escapeHTML(commentBody)}
+                </div>
+
             </div>
 
             ${
@@ -837,11 +845,27 @@ function displayComments(recommendationId, comments) {
                 Number(currentUserId) === Number(commentUserId)
 
                 ? `
-                <button
-                    class="delete-comment-button"
-                    data-comment-id="${commentId}">
-                    DELETE
-                </button>
+                <div class="comment-menu">
+
+                    <button
+                        type="button"
+                        class="comment-menu-button"
+                        aria-label="Comment options">
+                        ⋮
+                    </button>
+
+                    <div class="comment-menu-dropdown">
+
+                        <button
+                            type="button"
+                            class="delete-comment-button"
+                            data-comment-id="${commentId}">
+                            Delete
+                        </button>
+
+                    </div>
+
+                </div>
                 `
 
                 : ""
@@ -849,12 +873,34 @@ function displayComments(recommendationId, comments) {
 
         `;
 
+        const menuButton = commentElement.querySelector(
+            ".comment-menu-button"
+        );
+
+        if (menuButton) {
+            menuButton.addEventListener("click", function (event) {
+
+                event.stopPropagation();
+
+                const menu = menuButton.closest(".comment-menu");
+
+                const wasOpen = menu.classList.contains("open");
+
+                closeAllCommentMenus();
+
+                if (!wasOpen) {
+                    menu.classList.add("open");
+                }
+            });
+        }
+
         const deleteCommentButton = commentElement.querySelector(
             ".delete-comment-button"
         );
 
         if (deleteCommentButton) {
             deleteCommentButton.addEventListener("click", function () {
+                closeAllCommentMenus();
                 deleteComment(commentId, recommendationId);
             });
         }
@@ -882,8 +928,9 @@ function displayComments(recommendationId, comments) {
 
         <button
             type="submit"
-            class="comment-submit-button">
-            POST
+            class="comment-submit-button"
+            aria-label="Send comment">
+            ➤
         </button>
 
     `;
@@ -1064,6 +1111,32 @@ function escapeHTML(value) {
 /* =====================================================
    INITIALIZE
 ===================================================== */
+
+/* =====================================================
+   COMMENT THREE-DOT MENU HELPERS
+===================================================== */
+
+function closeAllCommentMenus() {
+
+    document
+        .querySelectorAll(".comment-menu.open")
+        .forEach(function (menu) {
+            menu.classList.remove("open");
+        });
+}
+
+
+/*
+ * Clicking anywhere outside a menu closes all open menus.
+ */
+
+document.addEventListener("click", function (event) {
+
+    if (!event.target.closest(".comment-menu")) {
+        closeAllCommentMenus();
+    }
+});
+
 
 async function initialize() {
 

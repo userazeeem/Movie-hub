@@ -1628,3 +1628,94 @@ footer {
 
     transform: translateY(-1px);
 }
+/* =========================
+   HERO: TOP 3 POSTERS
+   ========================= */
+
+.hero-visual .poster {
+    right: 80px;
+    top: 65px;
+    cursor: pointer;
+
+    background: linear-gradient(145deg, #27070b 0%, #12080a 35%, #070707 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    transition:
+        transform 0.6s cubic-bezier(0.22, 0.8, 0.3, 1),
+        filter 0.6s ease,
+        box-shadow 0.6s ease;
+}
+
+.hero-visual .poster[data-pos="0"] {
+    z-index: 3;
+    transform: rotate(-2deg);
+    filter: none;
+    box-shadow:
+        0 35px 90px rgba(0, 0, 0, 0.8),
+        0 0 70px rgba(229, 9, 26, 0.12);
+}
+
+.hero-visual .poster[data-pos="1"] {
+    z-index: 2;
+    transform: translate(60px, -22px) rotate(8deg) scale(0.96);
+    filter: brightness(0.6);
+}
+
+.hero-visual .poster[data-pos="2"] {
+    z-index: 1;
+    transform: translate(-55px, 12px) rotate(-12deg) scale(0.92);
+    filter: brightness(0.45);
+}
+
+.poster-rank {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    z-index: 2;
+    padding: 7px 13px;
+    border: 1px solid rgba(229, 9, 26, 0.5);
+    border-radius: 100px;
+    background: rgba(229, 9, 26, 0.14);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.hero-visual .poster-content h2 {
+    font-size: 34px;
+    line-height: 1;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hero-visual .poster-content > span {
+    font-size: 11px;
+}
+
+.poster-view {
+    margin-top: 14px;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.poster-view:hover {
+    background: #e5091a;
+    border-color: #e5091a;
+}
+
+/* the button shows on the front card only */
+.hero-visual .poster:not([data-pos="0"]) .poster-view {
+    opacity: 0;
+    pointer-events: none;
+}

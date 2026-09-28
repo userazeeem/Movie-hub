@@ -59,7 +59,8 @@ async function loadMovies() {
             ? data
             : data.movies || [];
 
-        displayMovies(movies);
+                displayMovies(movies);
+        renderTopPosters();
 
     } catch (error) {
 
@@ -106,9 +107,10 @@ function displayMovies(movieList) {
 
         card.innerHTML = `
 
-            <div class="movie-poster">
-                🎬
-            </div>
+            <UPDATE movies
+SET poster_url  = 'images/inception.jpg',
+    trailer_url = 'https://www.youtube.com/watch?v=YoHD9XEInc0'
+WHERE title = 'Inception';
 
             <div class="movie-info">
 
@@ -337,5 +339,94 @@ if (navProfileLetter) {
         navProfileLetter.textContent = "U";
 
     }
+}
+/* =====================================================
+   HERO: TOP 3 MOVIES (click a poster to bring it forward)
+===================================================== */
 
+let heroOrder = [];
+
+function renderTopPosters() {
+
+    const heroPosters = document.getElementById("heroPosters");
+
+    if (!heroPosters) return;
+
+    heroPosters.querySelectorAll(".poster").forEach((p) => p.remove());
+
+    /* highest rating first; equal ratings keep newest-first order */
+    const top3 = [...movies]
+        .sort((a, b) => Number(b.rating || 0) - Number(a.rating || 0))
+        .slice(0, 3);
+
+    if (!top3.length) {
+        heroOrder = [];
+        return;
+    }
+
+    heroOrder = top3.map((movie, index) => {
+
+        const poster = document.createElement("div");
+        poster.className = "poster";
+        poster.tabIndex = 0;
+        poster.title = "Click to bring forward";
+
+        const details = [movie.genre || "Movie", movie.release_year || ""]
+            .filter(Boolean)
+            .join(" • ");
+
+        poster.innerHTML = `
+            <div class="poster-shape"></div>
+            <div class="poster-gradient"></div>
+
+            <div class="poster-rank">TOP ${index + 1} MOVIE</div>
+
+            <div class="poster-content">
+                <span>${escapeHTML(details)}</span>
+                <h2>${escapeHTML(movie.title)}</h2>
+                <div class="poster-line"></div>
+                <button type="button" class="poster-view">View movie →</button>
+            </div>
+        `;
+
+        poster.addEventListener("click", () => bringPosterForward(poster));
+
+        poster.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") bringPosterForward(poster);
+        });
+
+        poster.querySelector(".poster-view").addEventListener("click", (event) => {
+            event.stopPropagation();
+            window.location.href = `movie.html?id=${movie.id}`;
+        });
+
+        heroPosters.appendChild(poster);
+
+        return poster;
+    });
+
+    updateHeroPositions();
+}
+
+function updateHeroPositions() {
+    heroOrder.forEach((poster, position) => {
+        poster.dataset.pos = position;
+    });
+}
+
+function bringPosterForward(poster) {
+
+    const index = heroOrder.indexOf(poster);
+
+    if (index === -1) return;
+
+    if (index === 0) {
+        /* front card goes to the back, the next one comes forward */
+        heroOrder.push(heroOrder.shift());
+    } else {
+        /* a back card comes to the front */
+        heroOrder = [...heroOrder.slice(index), ...heroOrder.slice(0, index)];
+    }
+
+    updateHeroPositions();
 }
