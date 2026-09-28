@@ -12,30 +12,41 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
+// ===============================
+// USER ROUTES
+// ===============================
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);
+
+// ===============================
+// FOLLOW ROUTES
+// ===============================
 const followRoutes = require("./routes/followRoutes");
 app.use("/api/follows", followRoutes);
 
-// Comment routes
+// ===============================
+// COMMENT ROUTES
+// ===============================
 const commentRoutes = require("./routes/commentRoutes");
 app.use("/api/comments", commentRoutes);
 
-// Recommendation routes
+// ===============================
+// RECOMMENDATION ROUTES
+// ===============================
 const recommendationRoutes = require("./routes/recommendationRoutes");
 app.use("/api/recommendations", recommendationRoutes);
 
 // ===============================
 // MOVIE ROUTES
 // ===============================
-
 const movieRoutes = require("./routes/movieRoutes");
 app.use("/api/movies", movieRoutes);
+
 // ===============================
 // AUTH ROUTES
 // ===============================
-
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
-
 
 // ===============================
 // WATCHLIST ROUTES
@@ -43,14 +54,12 @@ app.use("/api/auth", authRoutes);
 const watchlistRoutes = require("./routes/watchlistRoutes");
 app.use("/api/watchlist", watchlistRoutes);
 
-
 // ===============================
 // HOME ROUTE
 // ===============================
 app.get("/", (req, res) => {
     res.send("Movie-Hub API is running!");
 });
-
 
 // ===============================
 // MYSQL TEST ROUTE
@@ -75,7 +84,6 @@ app.get("/test-db", (req, res) => {
         });
     });
 });
-
 
 // ===============================
 // START SERVER

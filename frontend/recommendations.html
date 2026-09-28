@@ -39,43 +39,42 @@
 
         </a>
 
-<nav class="nav-links">
+        <nav class="nav-links">
 
-    <a href="index.html">
-        Home
-    </a>
+            <a href="index.html">
+                Home
+            </a>
 
-    <a href="watchlist.html">
-        Watchlist
-    </a>
+            <a href="watchlist.html">
+                Watchlist
+            </a>
 
-    <a href="recommendations.html">
-        Recommendations
-    </a>
+            <a href="recommendations.html" class="active">
+                Recommendations
+            </a>
 
-</nav>
-
-
-<div class="nav-actions">
-
-    <a
-        href="profile.html"
-        class="profile-nav"
-        title="Profile">
-
-        <span id="navProfileLetter">U</span>
-
-    </a>
+        </nav>
 
 
+        <div class="nav-actions">
 
+            <a
+                href="profile.html"
+                class="profile-nav"
+                title="Profile">
 
-        <button
-            id="logoutButton"
-            class="logout-button"
-        >
-            Logout
-        </button>
+                <span id="navProfileLetter">U</span>
+
+            </a>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
 
     </header>
 
@@ -156,6 +155,7 @@
                 <button
                     id="closeFormButton"
                     class="close-button"
+                    type="button"
                 >
                     ×
                 </button>
@@ -163,26 +163,43 @@
             </div>
 
 
-           <div class="form-group">
-    <label for="movieSearch">Search Movie</label>
+            <!-- THIS OPENING TAG WAS MISSING -->
+            <form id="recommendationForm">
 
-    <input
-        type="text"
-        id="movieSearch"
-        placeholder="Search for a movie..."
-        autocomplete="off"
-    >
+                <div class="form-group">
 
-    <div id="movieSearchResults" class="movie-search-results"></div>
+                    <label for="movieSearch">
+                        Search Movie
+                    </label>
 
-    <input type="hidden" id="movieSelect" required>
-</div>
+                    <input
+                        type="text"
+                        id="movieSearch"
+                        placeholder="Search for a movie..."
+                        autocomplete="off"
+                    >
 
-<div id="selectedMovie" class="selected-movie hidden">
-    <span>Selected:</span>
-    <strong id="selectedMovieTitle"></strong>
-    <button type="button" id="clearSelectedMovie">×</button>
-</div>
+                    <div
+                        id="movieSearchResults"
+                        class="movie-search-results"
+                    ></div>
+
+                    <input type="hidden" id="movieSelect">
+
+                </div>
+
+
+                <div id="selectedMovie" class="selected-movie hidden">
+
+                    <span>Selected:</span>
+
+                    <strong id="selectedMovieTitle"></strong>
+
+                    <button type="button" id="clearSelectedMovie">
+                        ×
+                    </button>
+
+                </div>
 
 
                 <div class="form-group">

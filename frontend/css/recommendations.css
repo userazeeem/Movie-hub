@@ -1615,3 +1615,226 @@ footer {
 
     transform: translateY(-1px);
 }
+/* =====================================================
+   COMMENTS + CARD POLISH
+   Paste this at the very END of css/recommendations.css
+===================================================== */
+
+
+/* ---------- Readable card text and buttons ---------- */
+
+.recommendation-text {
+    font-size: 14px;
+    color: #b5b5b5;
+}
+
+.recommended-by {
+    font-size: 11px;
+}
+
+.recommendation-actions {
+    gap: 10px;
+}
+
+.view-movie-button,
+.comment-button,
+.delete-recommendation-button {
+    padding: 11px 14px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.comment-button::before {
+    content: "💬 ";
+}
+
+.delete-recommendation-button {
+    margin-left: auto;
+}
+
+
+/* ---------- Comments panel ---------- */
+
+.comments-section {
+    margin-top: 18px;
+    padding: 14px;
+    background: #0a0a0a;
+    border: 1px solid #202020;
+    border-radius: 10px;
+}
+
+
+/* scrollable list when there are many comments */
+
+.comments-section .comment-item:first-child {
+    margin-top: 0;
+}
+
+
+/* ---------- One comment ---------- */
+
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.comment-item:last-of-type {
+    border-bottom: none;
+}
+
+.comment-avatar {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    background: rgba(229, 9, 26, 0.12);
+    border: 1px solid rgba(229, 9, 26, 0.3);
+    border-radius: 50%;
+    color: #e5091a;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-user {
+    color: #e6e6e6;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.comment-text {
+    color: #a0a0a0;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.delete-comment-button {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: #555;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.delete-comment-button:hover {
+    color: #ff4d5a;
+    background: rgba(229, 9, 26, 0.1);
+}
+
+
+/* ---------- Empty message ---------- */
+
+.no-comments {
+    padding: 8px 0 12px;
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+/* ---------- Write a comment ---------- */
+
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 6px 6px 6px 16px;
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 100px;
+    transition: 0.2s ease;
+}
+
+.comment-form:focus-within {
+    border-color: rgba(229, 9, 26, 0.6);
+}
+
+.comment-input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 13px;
+}
+
+.comment-input::placeholder {
+    color: #555;
+}
+
+.comment-submit-button {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    background: #e5091a;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.comment-submit-button:hover {
+    background: #f20b1d;
+    transform: scale(1.06);
+}
+
+
+/* ---------- Phones ---------- */
+
+@media (max-width: 650px) {
+
+    .delete-recommendation-button {
+        margin-left: 0;
+    }
+
+    .comment-button::before {
+        content: "💬 ";
+    }
+}
+.comment-submit-button,
+.delete-comment-button,
+.delete-recommendation-button,
+.view-movie-button,
+.comment-button {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.comment-submit-button {
+    width: auto;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 100px;
+}
+
+.delete-comment-button {
+    width: auto;
+    height: 26px;
+    padding: 0 10px;
+    border-radius: 100px;
+    font-size: 11px;
+}
