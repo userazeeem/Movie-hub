@@ -107,10 +107,16 @@ function displayMovies(movieList) {
 
         card.innerHTML = `
 
-            <UPDATE movies
-SET poster_url  = 'images/inception.jpg',
-    trailer_url = 'https://www.youtube.com/watch?v=YoHD9XEInc0'
-WHERE title = 'Inception';
+            <div class="movie-poster">
+                ${
+                    movie.poster_url
+                        ? `<img src="${escapeHTML(movie.poster_url)}"
+                                alt="${escapeHTML(movie.title)} poster"
+                                loading="lazy"
+                                onerror="this.replaceWith('🎬')">`
+                        : "🎬"
+                }
+            </div>
 
             <div class="movie-info">
 
@@ -375,7 +381,20 @@ function renderTopPosters() {
             .filter(Boolean)
             .join(" • ");
 
-        poster.innerHTML = `
+                poster.innerHTML = `
+            ${
+                movie.poster_url
+                    ? `<img class="poster-image"
+                            src="${escapeHTML(movie.poster_url)}"
+                            alt=""
+                            onerror="this.remove()">`
+                    : ""
+            }
+
+            <div class="poster-shape"></div>
+            <div class="poster-gradient"></div>
+
+            <div class="poster-rank">TOP ${index + 1} MOVIE</div>
             <div class="poster-shape"></div>
             <div class="poster-gradient"></div>
 

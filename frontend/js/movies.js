@@ -123,6 +123,8 @@ async function loadMovie() {
 
 function displayMovie(movie) {
 
+    currentTrailerUrl = movie.trailer_url || null;
+
     document.title =
         `${movie.title} | Movie-Hub`;
 
@@ -200,7 +202,14 @@ function displayMovie(movie) {
                 >
                     + Add to Watchlist
                 </button>
-
+                
+                                ${
+                    getYouTubeEmbedUrl(movie.trailer_url)
+                        ? `<button class="secondary-button" onclick="openTrailer()">
+                               ▶ Watch Trailer
+                           </button>`
+                        : ""
+                }
 
                 <button
                     class="secondary-button"
@@ -309,6 +318,7 @@ function goBack() {
 }
 
 
+
 /* =====================================================
    ERROR
 ===================================================== */
@@ -410,3 +420,68 @@ if (navProfileLetter) {
     }
 
 }
+/* =====================================================
+   TRAILER
+===================================================== */
+
+let currentTrailerUrl = null;
+
+function getYouTubeEmbedUrl(url) {
+
+    if (!url) return null;
+
+    const match = String(url).match(
+        /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/
+    );
+
+    return match
+        ? `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0`
+        : null;
+}
+
+function openTrailer() {
+
+    const embedUrl = getYouTubeEmbedUrl(currentTrailerUrl);
+
+    if (!embedUrl) {
+        alert("This trailer link is not valid.");
+        return;
+    }
+
+    const modal = document.createElement("div");
+    modal.className = "trailer-modal";
+
+    modal.innerHTML = `
+        <div class="trailer-box">
+            <button type="button" class="trailer-close" aria-label="Close trailer">×</button>
+            <iframe
+                src="${embedUrl}"
+                title="Movie trailer"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    `;
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeTrailer();
+    });
+
+    modal.querySelector(".trailer-close").addEventListener("click", closeTrailer);
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = "hidden";
+}
+
+function closeTrailer() {
+
+    const modal = document.querySelector(".trailer-modal");
+
+    if (modal) modal.remove();   // removing the iframe stops the video
+
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeTrailer();
+});
