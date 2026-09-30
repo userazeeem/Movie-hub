@@ -662,6 +662,127 @@ function escapeHTML(value) {
     return div.innerHTML;
 }
 
+/* =====================================================
+   USER SEARCH
+===================================================== */
+
+const userSearchInput = document.getElementById("userSearchInput");
+const userSearchResults = document.getElementById("userSearchResults");
+let userSearchTimer;
+
+if (userSearchInput && userSearchResults) {
+
+    userSearchInput.addEventListener("input", () => {
+
+        clearTimeout(userSearchTimer);
+
+        const q = userSearchInput.value.trim();
+
+        if (!q) {
+            userSearchResults.innerHTML = "";
+            return;
+        }
+
+        userSearchTimer = setTimeout(() => searchUsers(q), 300);
+    });
+}
+
+async function searchUsers(q) {
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/users/search?q=${encodeURIComponent(q)}`,
+            { headers: { "Authorization": `Bearer ${token}` } }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Search failed.");
+        }
+
+        renderUserResults(data.users || []);
+
+    } catch (error) {
+
+        console.error("User search error:", error);
+
+        userSearchResults.innerHTML =
+            `<p class="user-search-empty">${escapeHTML(error.message)}</p>`;
+    }
+}
+
+function renderUserResults(users) {
+
+    if (!users.length) {
+        userSearchResults.innerHTML =
+            `<p class="user-search-empty">No users found.</p>`;
+        return;
+    }
+
+    userSearchResults.innerHTML = "";
+
+    users.forEach((user) => {
+
+        let isFollowing = Number(user.is_following) === 1;
+
+        const row = document.createElement("div");
+
+        row.className = "user-result";
+
+        row.innerHTML = `
+            <span class="user-result-name">${escapeHTML(user.username)}</span>
+            <button class="user-follow-button ${isFollowing ? "following" : ""}">
+                ${isFollowing ? "UNFOLLOW" : "FOLLOW"}
+            </button>
+        `;
+
+        const button = row.querySelector(".user-follow-button");
+
+        button.addEventListener("click", async () => {
+
+            button.disabled = true;
+
+            try {
+
+                const action = isFollowing ? "remove" : "add";
+
+                const response = await fetch(
+                    `${API_URL}/follows/${action}/${user.id}`,
+                    {
+                        method: isFollowing ? "DELETE" : "POST",
+                        headers: { "Authorization": `Bearer ${token}` }
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || "Action failed.");
+                }
+
+                isFollowing = !isFollowing;
+
+                button.textContent = isFollowing ? "UNFOLLOW" : "FOLLOW";
+
+                button.classList.toggle("following", isFollowing);
+
+                loadFollowing();   // refresh the FOLLOWING count
+
+            } catch (error) {
+
+                alert(error.message);
+
+            } finally {
+
+                button.disabled = false;
+            }
+        });
+
+        userSearchResults.appendChild(row);
+    });
+}
 
 /* =====================================================
    INITIALIZE

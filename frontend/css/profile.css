@@ -1234,3 +1234,71 @@ footer {
 
     transform: translateY(-1px);
 }
+
+/* =====================================================
+   USER SEARCH
+===================================================== */
+
+.user-search-input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #0d0d0d;
+    color: #fff;
+    border: 1px solid #292929;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.user-search-input:focus {
+    border-color: rgba(229, 9, 26, 0.7);
+}
+
+.user-search-results {
+    margin-top: 12px;
+    display: grid;
+    gap: 8px;
+}
+
+.user-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #0d0d0d;
+    border: 1px solid #202020;
+    border-radius: 7px;
+}
+
+.user-result-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.user-follow-button {
+    padding: 9px 16px;
+    background: #e5091a;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.user-follow-button.following {
+    background: transparent;
+    border: 1px solid #333;
+    color: #aaa;
+}
+
+.user-follow-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.user-search-empty {
+    color: #666;
+    font-size: 13px;
+    padding: 10px 0;
+}
