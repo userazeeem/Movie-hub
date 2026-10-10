@@ -110,16 +110,9 @@ function displayWatchlist(watchlist) {
 
             <div class="watchlist-message">
 
-                            <div class="movie-poster ${movie.poster_url ? "has-image" : ""}">
-                ${
-                    movie.poster_url
-                        ? `<img src="${escapeHTML(movie.poster_url)}"
-                                alt="${escapeHTML(title)} poster"
-                                loading="lazy"
-                                onerror="this.parentElement.classList.remove('has-image'); this.replaceWith('🎬')">`
-                        : "🎬"
-                }
-            </div>
+                <div class="empty-icon">
+                    🎬
+                </div>
 
                 <h2>
                     Your watchlist is empty
@@ -154,7 +147,8 @@ function displayWatchlist(watchlist) {
             item.movie || item;
 
 
-   const movieId = item.movie_id ?? item.movie?.id ?? movie.id;
+        const movieId =
+            item.movie_id ?? item.movie?.id ?? movie.id;
 
 
         const title =
@@ -177,8 +171,15 @@ function displayWatchlist(watchlist) {
 
         card.innerHTML = `
 
-            <div class="movie-poster">
-                🎬
+            <div class="movie-poster ${movie.poster_url ? "has-image" : ""}">
+                ${
+                    movie.poster_url
+                        ? `<img src="${escapeHTML(movie.poster_url)}"
+                                alt="${escapeHTML(title)} poster"
+                                loading="lazy"
+                                onerror="this.parentElement.classList.remove('has-image'); this.replaceWith('🎬')">`
+                        : "🎬"
+                }
             </div>
 
             <div class="movie-info">
