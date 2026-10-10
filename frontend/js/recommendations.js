@@ -9,7 +9,6 @@ try {
 } catch (error) {
     storedUser = {};
 }
-
 const currentUserId =
     storedUser.id ||
     storedUser.user_id ||
@@ -555,6 +554,11 @@ function createRecommendationCard(recommendation) {
     const movieId =
         recommendation.movie_id ||
         recommendation.movie?.id;
+    
+    const posterUrl =
+        recommendation.poster_url ||
+        recommendation.movie?.poster_url ||
+        "";
 
     const movieTitle =
         recommendation.movie?.title ||
@@ -583,7 +587,17 @@ function createRecommendationCard(recommendation) {
 
     card.innerHTML = `
 
-        <div class="recommendation-movie">
+                <div class="recommendation-movie ${posterUrl ? "has-image" : ""}">
+
+            ${
+                posterUrl
+                    ? `<img class="recommendation-poster"
+                            src="${escapeHTML(posterUrl)}"
+                            alt=""
+                            loading="lazy"
+                            onerror="this.parentElement.classList.remove('has-image'); this.remove()">`
+                    : ""
+            }
 
             <span class="movie-icon">
                 🎬
