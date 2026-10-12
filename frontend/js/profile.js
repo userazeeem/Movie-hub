@@ -39,7 +39,8 @@ const myRecommendationsContainer =
 
 const logoutButton =
     document.getElementById("logoutButton");
-
+    let followersList = [];
+    let followingList = [];
 
 /* =====================================================
    LOAD PROFILE
@@ -557,7 +558,7 @@ async function loadFollowers() {
             Array.isArray(data)
                 ? data
                 : data.followers || [];
-
+                        followersList = followers;
 
         followersCount.textContent =
             followers.length;
@@ -608,7 +609,7 @@ async function loadFollowing() {
             Array.isArray(data)
                 ? data
                 : data.following || [];
-
+                    followingList = following;
 
         followingCount.textContent =
             following.length;
@@ -781,6 +782,109 @@ function renderUserResults(users) {
         });
 
         userSearchResults.appendChild(row);
+    });
+}
+
+/* =====================================================
+   FOLLOWERS / FOLLOWING POPUP
+===================================================== */
+
+function closeUserListModal() {
+
+    const modal = document.querySelector(".user-list-modal");
+
+    if (modal) modal.remove();
+
+    document.body.style.overflow = "";
+}
+
+function openUserListModal(title, users) {
+
+    closeUserListModal();
+
+    const modal = document.createElement("div");
+    modal.className = "user-list-modal";
+
+    const box = document.createElement("div");
+    box.className = "user-list-box";
+
+    const header = document.createElement("div");
+    header.className = "user-list-header";
+
+    const heading = document.createElement("h3");
+    heading.textContent = title + " (" + users.length + ")";
+
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.className = "user-list-close";
+    closeButton.textContent = "×";
+    closeButton.addEventListener("click", closeUserListModal);
+
+    header.appendChild(heading);
+    header.appendChild(closeButton);
+
+    const body = document.createElement("div");
+    body.className = "user-list-body";
+
+    if (!users.length) {
+
+        const empty = document.createElement("p");
+        empty.className = "user-list-empty";
+        empty.textContent = "No users yet.";
+        body.appendChild(empty);
+
+    } else {
+
+        users.forEach((user) => {
+
+            const name = user.username || "User";
+
+            const item = document.createElement("div");
+            item.className = "user-list-item";
+
+            const avatar = document.createElement("div");
+            avatar.className = "user-list-avatar";
+            avatar.textContent = name.charAt(0).toUpperCase();
+
+            const label = document.createElement("span");
+            label.className = "user-list-name";
+            label.textContent = name;
+
+            item.appendChild(avatar);
+            item.appendChild(label);
+            body.appendChild(item);
+        });
+    }
+
+    box.appendChild(header);
+    box.appendChild(body);
+    modal.appendChild(box);
+
+    /* click the dark background to close */
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeUserListModal();
+    });
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = "hidden";
+}
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeUserListModal();
+});
+
+const followersCard = document.getElementById("followersCard");
+const followingCard = document.getElementById("followingCard");
+
+if (followersCard) {
+    followersCard.addEventListener("click", () => {
+        openUserListModal("Followers", followersList);
+    });
+}
+
+if (followingCard) {
+    followingCard.addEventListener("click", () => {
+        openUserListModal("Following", followingList);
     });
 }
 

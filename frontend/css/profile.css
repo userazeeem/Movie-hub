@@ -1302,3 +1302,110 @@ footer {
     font-size: 13px;
     padding: 10px 0;
 }
+/* =====================================================
+   FOLLOWERS / FOLLOWING POPUP
+===================================================== */
+
+.stat-card.clickable {
+    cursor: pointer;
+}
+
+.stat-card.clickable:hover .stat-number {
+    color: #e5091a;
+}
+
+.user-list-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.user-list-box {
+    width: min(420px, 100%);
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    background: #0d0d0d;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.user-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #202020;
+}
+
+.user-list-header h3 {
+    font-size: 16px;
+}
+
+.user-list-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid #292929;
+    border-radius: 50%;
+    color: #aaa;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.user-list-close:hover {
+    background: #e5091a;
+    border-color: #e5091a;
+    color: #fff;
+}
+
+.user-list-body {
+    padding: 8px 12px 14px;
+    overflow-y: auto;
+}
+
+.user-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-bottom: 1px solid #181818;
+}
+
+.user-list-item:last-child {
+    border-bottom: none;
+}
+
+.user-list-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(229, 9, 26, 0.12);
+    border: 1px solid rgba(229, 9, 26, 0.35);
+    border-radius: 50%;
+    color: #e5091a;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.user-list-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-list-empty {
+    padding: 24px 0;
+    color: #666;
+    font-size: 13px;
+    text-align: center;
+}
