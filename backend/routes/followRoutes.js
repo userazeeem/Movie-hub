@@ -191,5 +191,36 @@ router.delete("/remove/:following_id", authMiddleware, (req, res) => {
         }
     );
 });
+// REMOVE A FOLLOWER (they stop following me)
+router.delete("/remove-follower/:follower_id", authMiddleware, (req, res) => {
 
+    const myId = req.user.id;
+    const followerId = req.params.follower_id;
+
+    const sql = `
+        DELETE FROM follows
+        WHERE follower_id = ?
+        AND following_id = ?
+    `;
+
+    db.query(sql, [followerId, myId], (err, result) => {
+
+        if (err) {
+            console.error("Remove follower error:", err);
+            return res.status(500).json({
+                message: "Failed to remove follower"
+            });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "This user is not following you"
+            });
+        }
+
+        res.json({
+            message: "Follower removed successfully!"
+        });
+    });
+});
 module.exports = router;

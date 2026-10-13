@@ -1409,3 +1409,27 @@ footer {
     font-size: 13px;
     text-align: center;
 }
+.user-list-action {
+    margin-left: auto;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #aaa;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.user-list-action:hover {
+    background: #e5091a;
+    border-color: #e5091a;
+    color: #fff;
+}
+
+.user-list-action:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

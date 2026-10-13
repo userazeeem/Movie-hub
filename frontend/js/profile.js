@@ -39,8 +39,10 @@ const myRecommendationsContainer =
 
 const logoutButton =
     document.getElementById("logoutButton");
-    let followersList = [];
-    let followingList = [];
+
+let followersList = [];
+let followingList = [];
+
 
 /* =====================================================
    LOAD PROFILE
@@ -558,7 +560,8 @@ async function loadFollowers() {
             Array.isArray(data)
                 ? data
                 : data.followers || [];
-                        followersList = followers;
+
+        followersList = followers;
 
         followersCount.textContent =
             followers.length;
@@ -609,7 +612,8 @@ async function loadFollowing() {
             Array.isArray(data)
                 ? data
                 : data.following || [];
-                    followingList = following;
+
+        followingList = following;
 
         followingCount.textContent =
             following.length;
@@ -662,6 +666,7 @@ function escapeHTML(value) {
 
     return div.innerHTML;
 }
+
 
 /* =====================================================
    USER SEARCH
@@ -769,7 +774,7 @@ function renderUserResults(users) {
 
                 button.classList.toggle("following", isFollowing);
 
-                loadFollowing();   // refresh the FOLLOWING count
+                loadFollowing();   // refresh the FOLLOWING count and list
 
             } catch (error) {
 
@@ -785,6 +790,7 @@ function renderUserResults(users) {
     });
 }
 
+
 /* =====================================================
    FOLLOWERS / FOLLOWING POPUP
 ===================================================== */
@@ -798,9 +804,72 @@ function closeUserListModal() {
     document.body.style.overflow = "";
 }
 
-function openUserListModal(title, users) {
+
+async function removeRelation(mode, user, button) {
+
+    const isFollowing = mode === "following";
+
+    if (!isFollowing) {
+        const ok = confirm(
+            "Remove " + (user.username || "this user") + " from your followers?"
+        );
+        if (!ok) return;
+    }
+
+    const otherId = isFollowing ? user.following_id : user.follower_id;
+
+    const url = isFollowing
+        ? `${API_URL}/follows/remove/${otherId}`
+        : `${API_URL}/follows/remove-follower/${otherId}`;
+
+    button.disabled = true;
+
+    try {
+
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || "Action failed.");
+        }
+
+        if (isFollowing) {
+            followingList = followingList.filter(
+                (u) => u.following_id !== user.following_id
+            );
+            followingCount.textContent = followingList.length;
+        } else {
+            followersList = followersList.filter(
+                (u) => u.follower_id !== user.follower_id
+            );
+            followersCount.textContent = followersList.length;
+        }
+
+        /* redraw the popup with the updated list */
+        openUserListModal(mode);
+
+    } catch (error) {
+
+        alert(error.message);
+
+        button.disabled = false;
+    }
+}
+
+
+function openUserListModal(mode) {
 
     closeUserListModal();
+
+    const isFollowing = mode === "following";
+
+    const users = isFollowing ? followingList : followersList;
+
+    const title = isFollowing ? "Following" : "Followers";
 
     const modal = document.createElement("div");
     modal.className = "user-list-modal";
@@ -830,7 +899,9 @@ function openUserListModal(title, users) {
 
         const empty = document.createElement("p");
         empty.className = "user-list-empty";
-        empty.textContent = "No users yet.";
+        empty.textContent = isFollowing
+            ? "You are not following anyone yet."
+            : "No followers yet.";
         body.appendChild(empty);
 
     } else {
@@ -850,8 +921,17 @@ function openUserListModal(title, users) {
             label.className = "user-list-name";
             label.textContent = name;
 
+            const actionButton = document.createElement("button");
+            actionButton.type = "button";
+            actionButton.className = "user-list-action";
+            actionButton.textContent = isFollowing ? "UNFOLLOW" : "REMOVE";
+            actionButton.addEventListener("click", () => {
+                removeRelation(mode, user, actionButton);
+            });
+
             item.appendChild(avatar);
             item.appendChild(label);
+            item.appendChild(actionButton);
             body.appendChild(item);
         });
     }
@@ -869,24 +949,27 @@ function openUserListModal(title, users) {
     document.body.style.overflow = "hidden";
 }
 
+
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeUserListModal();
 });
+
 
 const followersCard = document.getElementById("followersCard");
 const followingCard = document.getElementById("followingCard");
 
 if (followersCard) {
     followersCard.addEventListener("click", () => {
-        openUserListModal("Followers", followersList);
+        openUserListModal("followers");
     });
 }
 
 if (followingCard) {
     followingCard.addEventListener("click", () => {
-        openUserListModal("Following", followingList);
+        openUserListModal("following");
     });
 }
+
 
 /* =====================================================
    INITIALIZE
