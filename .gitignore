@@ -1,19 +1,24 @@
 # Dependencies
 node_modules/
 
-# Environment variables
+# Secrets and environment files
 .env
 .env.*
+!.env.example
+
+# Database certificate and dumps
+ca.pem
+*.pem
+*.sql
+
+# Vercel
+.vercel/
 
 # Logs
 *.log
 npm-debug.log*
-yarn-debug.log*
 
-# OS files
+# OS and editor files
 .DS_Store
 Thumbs.db
-
-# Editor files
 .vscode/
-.postman/

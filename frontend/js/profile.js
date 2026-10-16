@@ -1,6 +1,7 @@
-const API_URL = "http://localhost:5000/api";
-
-const token = localStorage.getItem("token");
+const API_URL =
+    location.hostname === "localhost" || location.hostname === "127.0.0.1"
+        ? "http://localhost:5000"
+        : "https://YOUR-BACKEND.vercel.app";const token = localStorage.getItem("token");
 
 if (!token) {
     window.location.href = "login.html";

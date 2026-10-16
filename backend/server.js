@@ -7,52 +7,27 @@ const db = require("./config/db");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://127.0.0.1:5500",
+        "http://localhost:5500",
+        "https:movie-neicug3p3-userazeeem.vercel.app"
+    ]
+}));
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
 
 // ===============================
-// USER ROUTES
+// ROUTES
 // ===============================
-const userRoutes = require("./routes/userRoutes");
-app.use("/api/users", userRoutes);
-
-// ===============================
-// FOLLOW ROUTES
-// ===============================
-const followRoutes = require("./routes/followRoutes");
-app.use("/api/follows", followRoutes);
-
-// ===============================
-// COMMENT ROUTES
-// ===============================
-const commentRoutes = require("./routes/commentRoutes");
-app.use("/api/comments", commentRoutes);
-
-// ===============================
-// RECOMMENDATION ROUTES
-// ===============================
-const recommendationRoutes = require("./routes/recommendationRoutes");
-app.use("/api/recommendations", recommendationRoutes);
-
-// ===============================
-// MOVIE ROUTES
-// ===============================
-const movieRoutes = require("./routes/movieRoutes");
-app.use("/api/movies", movieRoutes);
-
-// ===============================
-// AUTH ROUTES
-// ===============================
-const authRoutes = require("./routes/authRoutes");
-app.use("/api/auth", authRoutes);
-
-// ===============================
-// WATCHLIST ROUTES
-// ===============================
-const watchlistRoutes = require("./routes/watchlistRoutes");
-app.use("/api/watchlist", watchlistRoutes);
+app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/follows", require("./routes/followRoutes"));
+app.use("/api/comments", require("./routes/commentRoutes"));
+app.use("/api/recommendations", require("./routes/recommendationRoutes"));
+app.use("/api/movies", require("./routes/movieRoutes"));
+app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/watchlist", require("./routes/watchlistRoutes"));
 
 // ===============================
 // HOME ROUTE
@@ -65,12 +40,9 @@ app.get("/", (req, res) => {
 // MYSQL TEST ROUTE
 // ===============================
 app.get("/test-db", (req, res) => {
-
     db.query("SELECT 1 + 1 AS result", (err, results) => {
-
         if (err) {
             console.error("❌ Database error:", err.message);
-
             return res.status(500).json({
                 success: false,
                 message: err.message
@@ -86,8 +58,12 @@ app.get("/test-db", (req, res) => {
 });
 
 // ===============================
-// START SERVER
+// START SERVER (not on Vercel)
 // ===============================
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+if (process.env.VERCEL !== "1") {
+    app.listen(PORT, () => {
+        console.log(`🚀 Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
