@@ -11,7 +11,7 @@ app.use(cors({
     origin: [
         "http://127.0.0.1:5500",
         "http://localhost:5500",
-        "https:movie-neicug3p3-userazeeem.vercel.app"
+        "https://movie-neicug3p3-userazeeem.vercel.app"
     ]
 }));
 app.use(express.json());
