@@ -1,7 +1,7 @@
 const API_URL =
     location.hostname === "localhost" || location.hostname === "127.0.0.1"
-        ? "http://localhost:5000"
-        : "https://YOUR-BACKEND.vercel.app";
+        ? "http://localhost:5000/api"
+        : "https://movie-hub-api.vercel.app/api";
 const token = localStorage.getItem("token");
 
 const moviesContainer =
